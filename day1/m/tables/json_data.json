@@ -1,0 +1,46 @@
+[
+	["$n, m$","测试点","$c$"]
+	{%- set last = None -%}
+	{% for datum in prob['data'] %}
+	,[
+		{%- if last and datum.args[0] == last[0] and datum.args[1] == last[1] -%}
+			null
+		{%- elif datum.args[0] == -1 and datum.args[1] == -1 -%}
+			"无约束"
+		{%- else -%}
+			"
+			{%- if datum.args[0] != -1 -%}
+				$n,m \\le {{ tools.js_hn(datum.args[0]) }}$
+			{%- endif -%}
+			{%- if datum.args[0] != -1 and datum.args[1] != -1 -%}
+				并且
+			{%- endif -%}
+			{%- if datum.args[1] != -1 -%}
+				$nm \\le {{ tools.js_hn(datum.args[1]) }}$
+			{%- endif -%}
+			"
+		{%- endif -%},"
+		{%- for i in datum['cases'] -%}
+			{{- i -}}
+			{%- if not loop.last -%}
+				,
+			{%- endif -%}
+		{%- endfor -%}",
+		{%- if last and datum.args[2] == last[2] and datum.args[3] == last[3] -%}
+			null
+		{%- else -%}"$
+			{%- if datum.args[2] == 0 -%}
+				c \\le nm
+			{%- elif datum.args[2] == 1 -%}
+				c \\le {{ tools.js_hn(datum.args[3]) }}
+			{%- elif datum.args[2] == 2 -%}
+				\\sum_{}^{}c \\le {{ tools.js_hn(datum.args[3]) }}
+			{%- elif datum.args[2] == 3 -%}
+				c = {{ tools.js_hn(datum.args[3]) }}
+			{%- endif -%}
+			$"
+		{%- endif -%}
+		{%- set last = datum['args'] -%}
+	]
+	{% endfor %}
+]
