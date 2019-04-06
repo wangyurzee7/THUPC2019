@@ -60,5 +60,10 @@
 
 一行一个整数，表示这年的母亲节是 5 月的第几天。（请注意**不要**输出多余的前导零）
 
+{{ s('sample', 1) }}
 
+{{ self.sample_text() }}
 
+{{ self.title_sample_description() }}
+
+2019 年的母亲节是 5 月 12 日。
