@@ -493,8 +493,10 @@ void dfs(int w){
 int main(){
 	fread(ib,1,sizeof(ib),stdin);
 	n=read();
+	assert(1<=n&&n<=100000);
 	for(int i=2;i<=n;++i){
 		int f=read();
+		assert(1<=f&&f<i);
 		e[f].push_back(i);
 		fa[i]=f;
 		dep[i]=dep[f]+1;
@@ -503,8 +505,13 @@ int main(){
 	node*rt=build(1);
 
 	m=read();
+	assert(1<=m&&m<=100000);
 	for(cur_q=1;cur_q<=m;++cur_q){
 		int p0=read(),d0=read(),p1=read(),d1=read();
+		assert(1<=p0&&p0<=n);
+		assert(0<=d0&&d0<=n-1);
+		assert(1<=p1&&p1<=n);
+		assert(0<=d1&&d1<=n-1);
 		crs[p0]->set(0,d0);
 		crs[p1]->set(1,d1);
 		rt->cal();
