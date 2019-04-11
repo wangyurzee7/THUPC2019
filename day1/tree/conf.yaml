@@ -1,58 +1,20 @@
-args:
-  n: 1000
-compile:
-  c: -O2 -std=c11
-  cpp: -O2 -std=c++11
-  java: ''
-  pas: -O2
-  py: ''
+args: {n: 1000}
+compile: {c: -O2 -std=c11, cpp: -O2 -std=c++11, java: '', pas: -O2, py: ''}
 data:
-- cases:
-  - 1
-  - 2
-  - 3
-  - 4
-  - 5
-  - 6
-  - 7
-  - 8
-  - 9
-  - 10
-  - 11
-  - 12
-  - 13
-  - 14
-  - 15
-  - 16
-  - 17
-  - 18
-  - 19
-  - 20
-  - 21
-  - 22
-  - 23
-  - 24
-  - 25
-  - 26
-  - 27
-  - 28
-  - 29
-  - 30
+- cases: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23, 24, 25, 26, 27, 28, 29, 30]
   score: 100
 folder: problem
 memory limit: 512 MB
 name: tree
 partial score: false
+pre: []
 samples:
-- cases:
-  - 1
+- cases: [1]
 time limit: 4.0
-title:
-  zh-cn: 用于试题标题的中文名称
+title: {zh-cn: 用于试题标题的中文名称}
 type: program
 users:
   ccz:
-    biaocheng:
-      expected: ==100
-      path: ccz/std.cpp
+    biaocheng: {expected: ==100, path: ccz/std.cpp}
 version: 2
