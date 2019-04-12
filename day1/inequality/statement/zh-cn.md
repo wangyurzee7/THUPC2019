@@ -18,7 +18,7 @@
 $$
 f_k(x)=\sum_{i=1}^{k} \lvert a_ix+b_i\rvert \quad (k=1,2,\dots,n)
 $$
-对于每个 $k=1,2,\dots,n$，试求 $f_k$ 在 $\mathbb{R}$ 上的最小值。
+现在，对于每个 $k=1,2,\dots,n$，试求 $f_k$ 在 $\mathbb{R}$ 上的最小值。可以证明最小值一定存在。
 
 {{ s('input format') }}
 
@@ -34,11 +34,17 @@ $$
 
 {{ self.output_file() }}
 
+输出 $n$ 行，第 $i(i=1,2,\dots,n)$ 行为一个实数，表示 $f_i$ 在 $\mathbb{R}$ 上的最小值。
+
 {{ s('sample', 1) }}
 
 {{ self.sample_text() }}
 
 {{ self.title_sample_description() }}
+
+$f_1(x)=\lvert x+1\rvert$，显然在 $x=-1$ 处取到最小值 $0$；
+
+$f_2(x)=\lvert x+1\rvert +\lvert x+2\rvert$，可以证明其在 ​$[-2,-1]$ 中任意位置取到最小值 ​$1$。
 
 {{ s('sample', 2) }}
 
@@ -48,6 +54,6 @@ $$
 
 {{ tbl('data') }}
 
-{{ s('hint') }}
+{{ s('后记') }}
 
 后来，全国三卷的考生们又回想起了被参数方程支配的恐惧。
