@@ -1,134 +1,57 @@
 {{ self.title() }}
 
-{{ s('background') }}
+## {{ _('Background') }}
 
-这样的子标题会被程序自动处理，可以方便翻译和提取每个部分等。如果你想自己定义子标签（尽管我们一般**不推荐**自己定义 s 标签），或者不需要国际化的话，你可将这些子标题直接写成这样：
+Yazid 和 Tiffany 喜欢字符串问题。在这里，我们将给你介绍一些关于字符串的基本概念。如果你是一名熟练的算法竞赛选手，则你基本上可以忽略它们。
 
-```
-{{ s('如何使用交互库') }}
-### 对于使用C/C++的选手
-```
+对于一个字符串 $S$， 我们定义 $\lvert S\rvert$ 表示 $S$ 的长度。
 
-If you want an English statement file, just copy this file as *en.md* and replace any Chinese text into English.
+接着，我们定义 $S\left(i\right)$（$1\leq i\leq\lvert S\rvert$）表示 $S$ 中从左往右数第 $i$ 个字符；该串 $S\left( {L,R}\right)$ 表示由 $S$ 中从左往右数，第 $L$ 个字符到第 $R$ 个字符依次连接形成的字符串，特别地，如果 $L < 1$ 或 $R > \lvert S\rvert$ 或 $L > R$，则 $S\left( L,R\right)$ 表示空串。
 
-更加详细的题目书写文档在[这里](https://git.thusaac.org/publish/tuack/wikis/%E9%A2%98%E9%9D%A2%E7%9A%84%E4%B9%A6%E5%86%99)。
+我们说两个字符串相等，当且仅当它们的长度相等，且从左至右各位上的字符依次相同。
 
-如果你不需要某些章节，可以直接删除。比如这一段是“题目背景”，很多题目其实并不需要这一段。
+我们说一个字符串串 $T$ 是字符串 $S$ 的子串，当且仅当存在 $L,R$，使得 $S\left( L,R\right)=T$。
 
-子标题请**不要**自己手动加方括号 `【】` 。
+对于两个不相等的字符串 $S,T$，比较它们字典序大小的规则如下：
 
-{{ s('description') }}
+* 空串的字典序小于任意非空字符串。
 
-**要强调的东西**这么写。一般只有 *file_name* 使用斜体，不用斜体表强调。
+* 如果两字符串均非空，且 $S\left( 1\right)\neq T\left( 1\right)$，则它们的字典序比较结果即为 $S\left( 1\right), T\left( 1\right)$ 的比较结果。
 
-行内的公式：$\sin \left(a x + b \right)$。注意使用规范的公式书写方式，例如一些常见错误的正确写法为：
+* 如果两字符串均非空，且 $S\left( 1\right) = T\left( 1\right)$，则它们的字典序比较结果即为 $S\left( 2,\lvert S\rvert\right), T\left( 2,\lvert S\rvert\right)$ 的字典序比较结果。
 
-```
-\sin	#有斜杠
-\log
-\max
-\bmod	#最常用的取模是bmod
-a~\mathrm{xor}~b	#不存在的算符可以这么造
-O\left(\frac{nm}{w}\right)
-#用left和right把括号变高以括住比较高的式子
-#不要用*和/表示乘除号，而用省略乘号、\times、\cdot和\div、分数表示
-d\left(a_i, b_j\right)	#多用括号和下标表示下标和参数，尽量不用方括号
-```
+## {{ _('Description') }}
 
-行间的公式：
-$$
-\frac{-b\pm\sqrt{b^2-4ac} }{2a}
-$$
+给定多个**模式串** $S_1,\dots,S_m$。如果一个字符串的**所有长度为 $K$ 的子串**均为**至少一个模式串的子串**，则我们说这个字符串是 $K$-Yazid 的。
 
-1. 第一点
-2. 第二点
+举例而言：如果仅有一个模式串 `abac`，那么字符串 `babac` 就是 $2$-Yazid 的，但字符串 `abc` 并不是 $2$-Yazid 的，因为包含一个长度为 $2$ 的子串 `bc` 并不是模式串的子串。
 
-* 第一点
-* 第二点
+Tiffany 希望你求出**最小的正整数** $k$，满足不存在长度超过 $\sum_{i=1}^{m} \lvert S_i\rvert$ 的 $k$-Yazid 串。
 
-字符串或代码 `This is a string`，文件名是斜体，代码是字符串。注意英文、字符串、公式和中文之间要**加一个空格**，和标点符号之间不加空格。注意按照《[标点符号用法](http://www.moe.gov.cn/ewebeditor/uploadfile/2015/01/13/20150113091548267.pdf)》（教育部国标 GB/T 15834-2011）使用标点符号，注意不要有**错别字**、**语病**。
+在此基础上，Tiffany 还希望你求出**长度最大**的 $k$-Yazid 串中**字典序最小**的字符串 $T$。
 
-成块的代码、数据这么写：
-
-```
-int main(int argc, char** argv);
-```
-
-除公式内可以使用 tex 的部分语法外，不要直接使用任何 html 语法和 tex 语法。替代方案如下：
-
-不要用 markdown 自带的语法插入图片（因为目前支持不好），用下列语法插入图片：
-
-{{ img('sample.png', size = 0.5, align = 'middle', inline = False, caption='图片样例', label='fig:sample') }}
-
-其中 `inline` 为 `False` 表示这是一个独占一行的图片，此时支持 `align`，选项为 `left`，`middle` 或 `right`。后面这些参数可以不写。如果添加了 `caption` 字段，则对于 tex 的渲染结果，会在图片下方出现类似于“图1：图片样例”字样。
-
-图片需要保存在试题目录的 `resources` 子目录下。
-
-如果有本工具不能提供的功能，需要直接使用 tex 或 html 代码的，请使用下列方式以免另外一种格式下出错。（注意代码不要放在```中）
-
-```python
-{{ render(json.dumps('\\clearpage'), 'tuoi') }}
-{{ render(json.dumps('<a href="http://oj.thusaac.org">TUOJ</a>'), 'html') }}
-```
-
-上述第一个例子是为了排版好看强行加入一个分页符的意思，其中 `tuoi` 表示只在生成 TUOI 风格题面的时候使用这个；第二个例子是在生成任何 html 格式题目的时候加入一个广告（雾）。
-
-可选的参数有 `html`，`md`，`tex`，`noi`，`uoj`，`ccpc`，`ccc`，`tuoj`，`ccc-tex`，`ccc-md`，`tuoi`，`tupc`。参数可以有多个，写成一个数组即可，例如 `['tuoi', 'noi']`。
-
-**不要在题面里直接写tex或html代码！**
-
-{{ s('input format') }}
+## {{ _('Input Format') }}
 
 {{ self.input_file() }}
 
-上面会根据具体的评测环境说明输入是文件还是标准输入等。
+第 $1$ 行一个正整数 $m$，表示模式串的数目。
 
-输入的第一行包含一个正整数 $n$，保证 $n \le {{ tl.hn(args['n']) }}$。←这是引用 *conf.yaml* 中的 `args` 的 `n` 项，然后用“好看”的格式输出。“好看”的格式如 `10^9`，`1,000,000,007`。
+第 $2$ 行至第 $m+1$ 行，每行一个仅包含小写字母的非空字符串，其中第 $i+1$ 行的字符串为 $S_i$。
 
-引用 *conf.yaml* 的方法是使用变量 `prob`，例如可以写成 `prob.args['n']`，还可以写成 `prob['args']['n']`。引用 `args` 项、`data` 项、`samples` 项和 `pre` 项可以简写成例如 `args['n']` 或 `args.n`。在下文的表格中也一样。
+保证 $1\leq \sum_{i=1}^m \lvert S_i \rvert\leq 5\times 10^5$，这也意味着 $m\leq 5\times 10^5$。
 
-输入的第二行包含一个正整数 $m$，保证 $m \le {{ tl.hn(aargs.max('m')) }}$。
-
-↑`aargs.min` 是取出 `data` 项、`samples` 项和 `pre` 项中的所有同名变量的最小值，类似的函数还有 `max` 和 `sum`。形如 `aargs['m']` 可以取出所有同名变量的迭代器。和 python 的 `dict` 类似，还可以用形如 `aargs.get('m', 0)` 指定“如果没有某项用什么对象补空”，`sum`、`min` 和 `max` 类似。如果只取出 `data` 项、`samples` 项或 `pre` 项中的同名函数，使用 `dargs`、`sargs` 或 `pargs`。
-
-`tl` 是 `tools` 的简写，是一组工具。除 `hn` 外，还包括内建函数如 `tl.int`，`math` 中的对象或函数如 `tl.sin`，`datetime` 中的对象或函数如 `tl.time` 类，`num2chinese` 函数（可以把数字转化成中文）。
-
-{{ s('output format') }}
+## {{ _('Output Format') }}
 
 {{ self.output_file() }}
 
-输出一个字符串 `Yes`。出题人在写题面的时候注意**不要**写成 `“Yes”（不包含引号）`。
+第 $1$ 行一个整数 $k$，即为满足【题目描述】中要求的最小非负整数。
 
-{{ s('sample', 1) }}
+第 $2$ 行一个字符串 $T$，表示字典序最小的最长 $k$-Yazid 串。
 
+{% set vars = {} -%}
+{%- do vars.__setitem__('sample_id', 1) -%}
 {{ self.sample_text() }}
 
-上面是自动读入样例 `1.in/ans`（存储在 `down` 文件夹内） 然后渲染到题面中；如果只有一组样例，则去掉 `1` 或将其替换成空串，样例仍然保存成 `1.in/ans`。上面的 `1` 可以是字符串。
+{% do vars.__setitem__('sample_id', 2) -%}
+{{ self.sample_text() }}
 
-{{ self.title_sample_description() }}
-
-这是第一组数据的样例说明。
-
-{{ s('sample', 2) }}
-
-{{ self.sample_file() }}
-
-上面是只提示存在第二组样例，但不渲染到题面中。
-
-{{ s('subtasks') }}
-
-不要使用markdown原生的表格，使用下列方式渲染一个表格，其中表格存放在试题目录的 `tables` 子目录下。
-
-{{ tbl('data') }}
-
-{{ tbl('table', width = [1, 6]) }}
-
-原理上用一个二维的 json 表格或 python 表格存储，`null` 表示和上一行合并，不支持横向合并。建议用 python 的格式写，如例子中的 `data.pyinc`，这样可以根据数据生成；跟数据无关的表格则可以像 `table.json` 那样存储。
-
-{{ s('scoring') }}
-
-这是评分方法，如果有必要的话。
-
-{{ s('hint') }}
-
-这里是一个非常温馨的提示。
