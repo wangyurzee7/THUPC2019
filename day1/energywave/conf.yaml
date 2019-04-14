@@ -9,7 +9,7 @@ compile:
 data: []
 folder: problem
 memory limit: 32 MB
-name: string
+name: energywave
 partial score: false
 pre: []
 samples: []
