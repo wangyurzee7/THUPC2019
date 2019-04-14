@@ -1,21 +1,21 @@
 args:
   n: 1000
 compile:
-  c: -O2 -std=c14
+  c: -O2 -std=c11
   cpp: -O2 -std=c++14
   java: ''
   pas: -O2
   py: ''
 data: []
 folder: problem
-memory limit: 512 MB
-name: improve
+memory limit: 512 MiB
+name: findtree
 partial score: false
 pre: []
 samples: []
 time limit: 1.0
 title:
-  zh-cn: 改善生活
+  zh-cn: 找树
 type: program
 users: {}
 version: 2

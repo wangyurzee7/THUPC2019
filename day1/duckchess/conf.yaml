@@ -1,5 +1,11 @@
-args: {n: 1000}
-compile: {c: -O2 -std=c14, cpp: -O2 -std=c++14, java: '', pas: -O2, py: ''}
+args:
+  n: 1000
+compile:
+  c: -O2 -std=c14
+  cpp: -O2 -std=c++14
+  java: ''
+  pas: -O2
+  py: ''
 data: []
 folder: problem
 memory limit: 512 MB
@@ -8,7 +14,8 @@ partial score: false
 pre: []
 samples: []
 time limit: 1.0
-title: {zh-cn: 鸭棋}
+title:
+  zh-cn: 鸭棋
 type: program
 users: {}
 version: 2
