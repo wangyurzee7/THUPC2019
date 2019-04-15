@@ -3,6 +3,6 @@ folder: day
 name: day1
 start time: 2016-07-24 08:00:00+0800
 subdir: [m, tree, furniture, improve, string, duckchess, inequality, game, findtree,
-  divide]
+  divide, chess]
 title: {zh-cn: 第一试}
 version: 2
