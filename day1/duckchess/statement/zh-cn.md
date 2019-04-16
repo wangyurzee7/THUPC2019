@@ -13,18 +13,18 @@
 * **王**（`king`)：可达的位置共 $4$ 个，包括 $\left(x\pm 1,y\right)$ 及 $\left(x,y\pm 1\right)$。
 * **士**（`guard`）：可达的位置共 $4$ 个，包括 $\left(x\pm 1,y\pm 1\right)$。
 * **象**（`elephant`）：可达的位置至多 $4$ 个，对于 $s_x,s_y=\pm 1$，分别有：
-  * 如果位置 $\left(x+s_x\times 1 ,y+ s_y\times 1\right)​$ 上**无任意一方**的棋子停留，则 $\left( x+s_x \times 2,y+s_y \times 2\right)​$ 为一个可达的位置。
+    * 如果位置 $\left(x+s_x\times 1 ,y+ s_y\times 1\right)​$ 上**无任意一方**的棋子停留，则 $\left( x+s_x \times 2,y+s_y \times 2\right)​$ 为一个可达的位置。
 * **马**（`horse`）：可达的位置至多 $8$ 个，对于 $s_x,s_y=\pm 1$，分别有：
-  - 如果位置 $\left(x+s_x\times 1 ,y\right)​$ 上**无任意一方**的棋子停留，则 $\left( x+s_x \times 2,y+s_y \times 1\right)​$ 为一个可达的位置。
-  - 如果位置 $\left(x ,y+ s_y \times 1 \right)​$ 上**无任意一方**的棋子停留，则 $\left( x+s_x \times 1,y+s_y \times 2\right)​$ 为一个可达的位置。
+    * 如果位置 $\left(x+s_x\times 1 ,y\right)​$ 上**无任意一方**的棋子停留，则 $\left( x+s_x \times 2,y+s_y \times 1\right)​$ 为一个可达的位置。
+    * 如果位置 $\left(x ,y+ s_y \times 1 \right)​$ 上**无任意一方**的棋子停留，则 $\left( x+s_x \times 1,y+s_y \times 2\right)​$ 为一个可达的位置。
 * **车**（`car`）：可达的位置至多为对于同行**或**同列的所有位置，对于不同正整数 $k$，分别有：
-  * $\left(x+k,y\right)$ 为一个可达位置的条件是：它在棋盘上，且中间的 $k-1$ 个位置 ​$\left(x+1,y\right),\dots,\left(x+k-1,y\right)$ 上均**无任意一方**的棋子停留。
-  * $\left(x-k,y\right)$ 为一个可达位置的条件是：它在棋盘上，且中间的 $k-1$ 个位置 ​$\left(x-1,y\right),\dots,\left(x-k+1,y\right)$ 上均**无任意一方**的棋子停留。
-  * $\left(x,y+k\right)$ 为一个可达位置的条件是：它在棋盘上，且中间的 $k-1$ 个位置 ​$\left(x,y+1\right),\dots,\left(x,y+k-1\right)$ 上均**无任意一方**的棋子停留。
-  * $\left(x,y-k\right)$ 为一个可达位置的条件是：它在棋盘上，且中间的 $k-1$ 个位置 ​$\left(x,y-1\right),\dots,\left(x,y-k+1\right)$ 上均**无任意一方**的棋子停留。
+    * $\left(x+k,y\right)$ 为一个可达位置的条件是：它在棋盘上，且中间的 $k-1$ 个位置 ​$\left(x+1,y\right),\dots,\left(x+k-1,y\right)$ 上均**无任意一方**的棋子停留。
+    * $\left(x-k,y\right)$ 为一个可达位置的条件是：它在棋盘上，且中间的 $k-1$ 个位置 ​$\left(x-1,y\right),\dots,\left(x-k+1,y\right)$ 上均**无任意一方**的棋子停留。
+    * $\left(x,y+k\right)$ 为一个可达位置的条件是：它在棋盘上，且中间的 $k-1$ 个位置 ​$\left(x,y+1\right),\dots,\left(x,y+k-1\right)$ 上均**无任意一方**的棋子停留。
+    * $\left(x,y-k\right)$ 为一个可达位置的条件是：它在棋盘上，且中间的 $k-1$ 个位置 ​$\left(x,y-1\right),\dots,\left(x,y-k+1\right)$ 上均**无任意一方**的棋子停留。
 * **鸭**（`duck`）：可达的位置至多 $8$ 个，对于 $s_x,s_y=\pm 1$ 分别有：
-  - 如果位置 $\left(x+s_x\times 2 ,y+s_y \times 1\right),\left(x+s_x\times 1 ,y\right)$ 上均**无任意一方**的棋子停留，则 $\left( x+s_x \times 3,y+s_y \times 2\right)$ 为一个可达的位置。
-  - 如果位置 $\left(x+s_x \times 1 ,y+ s_y \times 2 \right),\left(x ,y+ s_y \times 1 \right)$ 上均**无任意一方**的棋子停留，则 $\left( x+s_x \times 2,y+s_y \times 3\right)$ 为一个可达的位置。
+    * 如果位置 $\left(x+s_x\times 2 ,y+s_y \times 1\right),\left(x+s_x\times 1 ,y\right)$ 上均**无任意一方**的棋子停留，则 $\left( x+s_x \times 3,y+s_y \times 2\right)$ 为一个可达的位置。
+    * 如果位置 $\left(x+s_x \times 1 ,y+ s_y \times 2 \right),\left(x ,y+ s_y \times 1 \right)$ 上均**无任意一方**的棋子停留，则 $\left( x+s_x \times 2,y+s_y \times 3\right)$ 为一个可达的位置。
 * **兵**（`soldier`）：可达的位置共 $8$ 个，包括 $\left(x\pm 1,y\right)$ 及 $\left(x,y\pm 1\right)$ 及 $\left(x\pm 1,y\pm 1\right)$。
 
 除上面描述的规则之外，棋子移动还有如下额外规则：
@@ -35,7 +35,7 @@
 
 玩家在这个游戏中的目标是将对方的**王**移出游戏。一旦一方的**王**被移出游戏，则另一方立即宣告胜利。
 
-对于一个棋盘的状态，如果存在一方有一步合法的操作能够将另一方的**王**移除游戏，则我们说当前局面是一个**将军**的局面。需要注意的是，即使当前轮到受到威胁的一方移动，将军局面仍可成立，这也意味着将军局面并不一定代表走投无路，而是存在可能被响应并解除的。
+对于一个棋盘的状态，如果存在一方有一步合法的操作能够将另一方的**王**移出游戏，则我们说当前局面是一个**将军**的局面。需要注意的是，即使当前轮到受到威胁的一方移动，将军局面仍可成立，这也意味着将军局面并不一定代表走投无路，而是存在可能被响应并解除的。
 
 鸭棋发明者鸭子德规定一局鸭棋由红方执先手，且设计了初始棋盘布局如下：
 
@@ -47,7 +47,7 @@
 
 1. 这步操作是否合法。
 2. 这步操作移动了哪个棋子。
-3. 这步操作后，是否存在棋子被移除游戏，如有则还需求出被移出游戏的棋子。
+3. 这步操作后，是否存在棋子被移出游戏，如有则还需求出被移出游戏的棋子。
 4. 这步操作后，是否形成将军局面。
 5. 这步操作后，游戏是否结束。
 
