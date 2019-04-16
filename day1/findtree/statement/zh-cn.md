@@ -10,9 +10,15 @@
 
 {{ self.input_file() }}
 
+这是 cjk 的输入格式
+
+保证 $n\le 100$，$w\le 10$。
+
 {{ s('output format') }}
 
 {{ self.output_file() }}
+
+这是 cjk 的输出格式
 
 {{ s('sample', 1) }}
 
@@ -20,6 +26,4 @@
 
 {{ self.title_sample_description() }}
 
-{{ s('subtasks') }}
-
-$n\le 100$，$w\le 10$。
+这是 cjk 的样例解释

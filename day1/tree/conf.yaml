@@ -12,7 +12,7 @@ pre: []
 samples:
 - cases: [1]
 time limit: 4.0
-title: {zh-cn: 用于试题标题的中文名称}
+title: {zh-cn: 不用找的树}
 type: program
 users:
   ccz:
