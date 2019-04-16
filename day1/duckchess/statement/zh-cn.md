@@ -17,17 +17,13 @@
 * **马**（`horse`）：可达的位置至多 $8$ 个，对于 $s_x,s_y=\pm 1$，分别有：
     * 如果位置 $\left(x+s_x\times 1 ,y\right)​$ 上**无任意一方**的棋子停留，则 $\left( x+s_x \times 2,y+s_y \times 1\right)​$ 为一个可达的位置。
     * 如果位置 $\left(x ,y+ s_y \times 1 \right)​$ 上**无任意一方**的棋子停留，则 $\left( x+s_x \times 1,y+s_y \times 2\right)​$ 为一个可达的位置。
-* **车**（`car`）：可达的位置至多为对于同行**或**同列的所有位置，对于不同正整数 $k$，分别有：
-    * $\left(x+k,y\right)$ 为一个可达位置的条件是：它在棋盘上，且中间的 $k-1$ 个位置 ​$\left(x+1,y\right),\dots,\left(x+k-1,y\right)$ 上均**无任意一方**的棋子停留。
-    * $\left(x-k,y\right)$ 为一个可达位置的条件是：它在棋盘上，且中间的 $k-1$ 个位置 ​$\left(x-1,y\right),\dots,\left(x-k+1,y\right)$ 上均**无任意一方**的棋子停留。
-    * $\left(x,y+k\right)$ 为一个可达位置的条件是：它在棋盘上，且中间的 $k-1$ 个位置 ​$\left(x,y+1\right),\dots,\left(x,y+k-1\right)$ 上均**无任意一方**的棋子停留。
-    * $\left(x,y-k\right)$ 为一个可达位置的条件是：它在棋盘上，且中间的 $k-1$ 个位置 ​$\left(x,y-1\right),\dots,\left(x,y-k+1\right)$ 上均**无任意一方**的棋子停留。
+* **车**（`car`）：可在**不跨越其他棋子**的前提下，到达同行或同列的所有其他位置。
 * **鸭**（`duck`）：可达的位置至多 $8$ 个，对于 $s_x,s_y=\pm 1$ 分别有：
     * 如果位置 $\left(x+s_x\times 2 ,y+s_y \times 1\right),\left(x+s_x\times 1 ,y\right)$ 上均**无任意一方**的棋子停留，则 $\left( x+s_x \times 3,y+s_y \times 2\right)$ 为一个可达的位置。
     * 如果位置 $\left(x+s_x \times 1 ,y+ s_y \times 2 \right),\left(x ,y+ s_y \times 1 \right)$ 上均**无任意一方**的棋子停留，则 $\left( x+s_x \times 2,y+s_y \times 3\right)$ 为一个可达的位置。
 * **兵**（`soldier`）：可达的位置共 $8$ 个，包括 $\left(x\pm 1,y\right)$ 及 $\left(x,y\pm 1\right)$ 及 $\left(x\pm 1,y\pm 1\right)$。
 
-除上面描述的规则之外，棋子移动还有如下额外规则：
+**除上面描述的规则之外，棋子移动还有如下额外规则：**
 
 * 不能将棋子移动到棋盘外的某个位置。
 * 玩家不能将棋子移动到**已经停留了己方棋子**的位置。
