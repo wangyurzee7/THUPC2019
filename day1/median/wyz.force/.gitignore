@@ -1,0 +1,7 @@
+*.in
+*.ans
+*.out
+*.txt
+fast_std
+std
+log
