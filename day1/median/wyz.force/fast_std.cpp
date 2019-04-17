@@ -11,32 +11,45 @@ inline int read(){
 	return ret;
 }
 
-const int N(3005);
-const int inf(1e9);
-
-int n;
-inline int median(int* a,int* b){
-	int l=0,r=n+1,mid;
+const int N(5005);
+const int inf(0x7fffffff);
+inline int median(int* a,int na,int* b,int nb){
+	if (na<nb) swap(na,nb),swap(a,b);
+	int k=(na+nb)>>1;
+	int l=max(k-nb-1,0),r=k,mid;
 	a[0]=b[0]=0;
-	a[n+1]=b[n+1]=inf+1;
+	a[na+1]=b[nb+1]=inf;
 	while (l+1<r){
 		mid=(l+r)>>1;
-		(a[mid]<=b[n-mid+1]?l:r)=mid;
+		(a[mid]<=b[nb-mid+1]&&b[nb-mid]<=a[mid+1]?l:r)=mid;
 	}
-	return max(a[l],b[n-l]);
+	return min(a[l+1],b[k-l]);
 }
 
 int m;
 int a[N][N];
+int n[N];
+unsigned int g[N],h[N];
 
 int main(){
 	m=read();
-	n=read();
-	for (int i=1;i<=m;++i)
-		for (int j=1;j<=n;++j)
+	for (int i=1;i<=m;++i){
+		n[i]=read();
+		for (int j=1;j<=n[i];++j)
 			a[i][j]=read();
-	for (int i=1;i<=m;++i)for (int j=i+1;j<=m;++j){
-		printf("%d\n",median(a[i],a[j]));
+		sort(a[i]+1,a[i]+n[i]+1);
 	}
+	memset(g,0,sizeof(g));
+	memset(h,0,sizeof(h));
+	for (int i=1;i<=m;++i)for (int j=i;j<=m;++j){
+		unsigned int tmp=median(a[i],n[i],a[j],n[j]);
+		g[i]+=tmp;
+		h[i]^=tmp;
+		if (i!=j){
+			g[j]+=tmp;
+			h[j]^=tmp;
+		}
+	}
+	for (int i=1;i<=m;++i) printf("%d %d\n",g[i],h[i]);
 	return 0;
 }
