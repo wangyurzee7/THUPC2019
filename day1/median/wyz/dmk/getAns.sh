@@ -1,6 +1,8 @@
-STD=../std
-make ${STD}
-for ((i=$1;i<=$2;++i))
+cd ..; make std; cd dmk;
+for ((i=1;;++i))
 do
-	time ./${STD} <$i.in >$i.ans
+	if [ ! -e $i.in ]; then
+		break
+	fi
+	time ./../std <$i.in >$i.ans
 done

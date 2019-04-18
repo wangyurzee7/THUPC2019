@@ -26,22 +26,23 @@ int Rand_log(int ub){return pow(base,1.0*rand()/RAND_MAX*(log(ub)/log(base)));}
 
 
 
-const int N(5005);
-int a[N][N];
-const int inf(1e9);
-int b[N];
+const int M(10005);
+const int N(1005);
+int a[M][N];
+const int inf=int(1e9)+1;
+int b[M];
+int flag;
 
-// if fuckSpfa=1, SPFA will be fucked.
 void gen(int m,int n,int type){
 	if (type==0){
 		for (int i=1;i<=m;++i)
 			for (int j=1;j<=n;++j)
-				a[i][j]=randULL()%inf+1;
+				a[i][j]=randULL()%inf;
 	}
 	else if (type==1){
 		for (int i=1;i<=m;++i)
 			for (int j=1;j<=n;++j)
-				a[i][j]=rand()%2+1;
+				a[i][j]=rand()%2;
 	}
 	else if (type==2){
 		for (int i=1;i<=n;++i) b[i]=randULL()%inf+1;
@@ -64,23 +65,29 @@ void gen(int m,int n,int type){
 			}
 		}
 	}
+	else if (type==3){
+		for (int i=1;i<=m;++i)
+			for (int j=1;j<=n;++j)
+				a[i][j]=inf-rand()%n;
+	}
 	
-	printf("%d %d\n",m,n);
+	printf("%d\n",m);
 	for (int i=1;i<=m;++i){
-		sort(a[i]+1,a[i]+n+1);
-		for (int j=1;j<=n;++j){
-			printf("%d",a[i][j]);
-			if (j==n) puts("");
-			else putchar(' ');
+		int n0=n-rand()%flag;
+		printf("%d",n0);
+		for (int j=1;j<=n0;++j){
+			printf(" %d",a[i][j]);
 		}
+		puts("");
 	}
 }
 
 int main(int argc,char **argv){
 	unsigned int seed=argc>1?atoi(argv[1]):time(0);
-	int m=argc>2?atoi(argv[2]):3000;
-	int n=argc>3?atoi(argv[3]):3000;
-	int type=argc>4?atoi(argv[4]):0;
+	int type=argc>2?atoi(argv[2]):0;
+	flag=argc>3?atoi(argv[3]):2;
+	int m=argc>4?atoi(argv[4]):10000;
+	int n=argc>5?atoi(argv[5]):500;
 	
 	srand(seed);
 	gen(m,n,type);

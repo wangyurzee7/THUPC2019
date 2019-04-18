@@ -11,8 +11,8 @@ inline int read(){
 	return ret;
 }
 
-const int M=5005;
-const int N=505;
+const int M=10005;
+const int N=1005;
 const int W=15;
 const int B=1<<W;
 const int b=B-1;
@@ -45,11 +45,11 @@ void sorting(){
     
     memset(sum,0,sizeof(sum));
     for (int i=0;i<sumN;++i)
-        ++sum[_tmp[i].first>>m];
+        ++sum[_tmp[i].first>>W];
     for (int i=1;i<B;++i)
         sum[i]+=sum[i-1];
     for (int i=sumN-1;~i;--i)
-        sorted[--sum[_tmp[i].first>>m]]=make_pair(_tmp[i].first,_tmp[i].second);
+        sorted[--sum[_tmp[i].first>>W]]=make_pair(_tmp[i].first,_tmp[i].second);
 }
 int ans[M];
 int cur[M],pre[M],nxt[M];

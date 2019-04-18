@@ -11,7 +11,8 @@ inline int read(){
 	return ret;
 }
 
-const int N(5005);
+const int M(10005);
+const int N(1005);
 const int inf(0x7fffffff);
 inline int median(int* a,int na,int* b,int nb){
 	if (na<nb) swap(na,nb),swap(a,b);
@@ -27,9 +28,9 @@ inline int median(int* a,int na,int* b,int nb){
 }
 
 int m;
-int a[N][N];
-int n[N];
-unsigned int g[N],h[N];
+int a[M][N];
+int n[M];
+unsigned int g[M],h[M];
 
 int main(){
 	m=read();
@@ -49,7 +50,6 @@ int main(){
 			h[j]^=(tmp+i+j);
 		}
 	}
-	puts("");
 	for (int i=1;i<=m;++i) printf("%u\n",h[i]);
 	return 0;
 }
