@@ -46,12 +46,6 @@ $f_1(x)=\lvert x+1\rvert$，显然在 $x=-1$ 处取到最小值 $0$；
 
 $f_2(x)=\lvert x+1\rvert +\lvert x+2\rvert$，可以证明其在 ​$[-2,-1]$ 中任意位置取到最小值 ​$1$。
 
-{{ s('sample', 2) }}
-
-{{ self.sample_file() }}
-
-{{ s('subtasks') }}
-
 {{ tbl('data') }}
 
 {{ s('后记') }}
