@@ -1,20 +1,14 @@
 {{ self.title() }}
 
-{{ s('background') }}
-
-Yazid 和 Tiffany 喜欢中位数。
-
-对于一个长度为 $n$ 的序列 $A_1,A_2,\dots,A_n$ 而言，其中位数指的是：该序列在升序排序后 $A_{\lfloor\frac{n+1}{2}\rfloor}$ 的值（其中 $\lfloor x\rfloor$ 表示下取整运算，即不超过 $x$ 的最大整数）。
-
 {{ s('description') }}
+
+Yazid 和 Tiffany 喜欢中位数。对于一个长度为 $n$ 的序列 $A_1,A_2,\dots,A_n$ 而言，其中位数指的是：该序列在升序排序后 $A_{\lfloor\frac{n+1}{2}\rfloor}$ 的值（$\lfloor x\rfloor$ 表示不超过 $x$ 的最大整数）。
 
 Tiffany 有 $m$ 个序列，其中长度为 $n_i$ 的第 $i$ 个（$1\leq i\leq m$）序列为 $A_{i,1},A_{i,2},\dots A_{i,n_i}$。
 
-我们记 $f\left( u,v\right)$ 第 $u$ 个序列和第 $v$ 个序列合并得到的（长度为 $n_u +n_v$ 的）序列的**中位数**。
+记 $f\left( u,v\right)$ 表示第 $u$ 个序列和第 $v$ 个序列合并得到的（长度为 $n_u +n_v$ 的）序列的中位数。Yazid 想求出所有 $f\left( u,v\right)$。但为了节省你的输出时间，你只需要对所有 $1\leq u\leq m$ 求出：
 
-Yazid 想要求出所有的 $f\left( u,v\right)$。但为了节省你的输出时间，你只需要对于所有 $1\leq u\leq m$ 输出：
-
-* $$R\left(u\right)=\mathop{\mathrm{XOR}}\limits_{v=1}^{n} {\left(f\left(u,v\right)+u+v\right)}$$（其中 $\mathrm{XOR}$ 表示的是异或运算，在 C++ 语言中对应 `^` 运算符）
+* $R\left(u\right)=\mathop{\mathrm{XOR}}\limits_{v=1}^{n} {\left(f\left(u,v\right)+u+v\right)}$（$\mathrm{xor}$ 指异或运算，在 C++ 语言中对应 `^` 运算符）。
 
 {{ s('input format') }}
 
