@@ -15,13 +15,13 @@ const int N(5005);
 const int inf(0x7fffffff);
 inline int median(int* a,int na,int* b,int nb){
 	if (na<nb) swap(na,nb),swap(a,b);
-	int k=(na+nb)>>1;
+	int k=(na+nb+1)>>1;
 	int l=max(k-nb-1,0),r=k,mid;
 	a[0]=b[0]=0;
 	a[na+1]=b[nb+1]=inf;
 	while (l+1<r){
 		mid=(l+r)>>1;
-		(a[mid]<=b[nb-mid+1]&&b[nb-mid]<=a[mid+1]?l:r)=mid;
+		(a[mid]<=b[k-mid]?l:r)=mid;
 	}
 	return min(a[l+1],b[k-l]);
 }
