@@ -43,13 +43,13 @@ int main(){
 	memset(h,0,sizeof(h));
 	for (int i=1;i<=m;++i)for (int j=i;j<=m;++j){
 		unsigned int tmp=median(a[i],n[i],a[j],n[j]);
-		g[i]+=tmp;
-		h[i]^=tmp;
+		// printf("%u %u %u   %u\n",i,j,tmp,tmp+i+j);
+		h[i]^=(tmp+i+j);
 		if (i!=j){
-			g[j]+=tmp;
-			h[j]^=tmp;
+			h[j]^=(tmp+i+j);
 		}
 	}
-	for (int i=1;i<=m;++i) printf("%d %d\n",g[i],h[i]);
+	puts("");
+	for (int i=1;i<=m;++i) printf("%u\n",h[i]);
 	return 0;
 }
