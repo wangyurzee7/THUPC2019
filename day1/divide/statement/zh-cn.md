@@ -1,24 +1,24 @@
 {{ self.title() }}
 
-{{ s('background') }}
-
-这是张鸽鸽的背景
-
 {{ s('description') }}
 
-这是张鸽鸽的问题描述
+牛牛有一块蛋糕，他想把蛋糕分给小朋友们。
+
+蛋糕一开始是圆形的，牛牛会在圆周上选择 $n$ （$0\le n \le64$）个点，将这几个点两两用线段连接。这些线段将会把蛋糕分成若干块。
+
+现在，牛牛想知道，蛋糕**最多**会被分成多少块，请你告诉他答案。
 
 {{ s('input format') }}
 
 {{ self.input_file() }}
 
-这是张鸽鸽的输入格式
+输入包含至多20行，每行一个整数 $n$ ，含义如上。
 
 {{ s('output format') }}
 
 {{ self.output_file() }}
 
-这是张鸽鸽的输出格式
+依次回答牛牛的每个问题，对于每个问题，输出一行，包含一个整数表示答案。
 
 {{ s('sample', 1) }}
 
@@ -26,14 +26,4 @@
 
 {{ self.title_sample_description() }}
 
-这是张鸽鸽的样例解释
-
-{{ s('sample', 2) }}
-
-{{ self.sample_file() }}
-
-上面是只提示存在第二组样例，但不渲染到题面中。
-
-{{ s('hint') }}
-
-这是张鸽鸽的温馨提示
+{{ img('sample.png', size = 0.5, align = 'middle', inline = False) }}
