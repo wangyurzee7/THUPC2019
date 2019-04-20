@@ -15,12 +15,12 @@ THUPC（THU Programming Contest，清华大学程序设计竞赛）2019 命题�
     * 验题人：罗崚骁
 * D. divide
     * 命题人：张瑞喆
-    * 验题人：**暂无**
+    * 验题人：黄松皓
 * E. energywave
     * 命题人：陈立杰
     * 验题人：陈俊锟
 * F. furniture
-    * 命题人：于继平
+    * 命题人：于纪平
     * 验题人：王逸松（暂定）
 * G. game
     * 命题人：吕欣
