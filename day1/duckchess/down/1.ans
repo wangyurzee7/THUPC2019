@@ -11,8 +11,8 @@ Invalid command
 blue elephant;NA;no;no
 red duck;NA;no;no
 blue horse;NA;no;no
-red duck;blue soldier;yes;no
+red duck;blue soldier;no;no
 Invalid command
-blue car;NA;yes;no
+blue captain;NA;yes;no
 red duck;blue king;no;yes
 Invalid command

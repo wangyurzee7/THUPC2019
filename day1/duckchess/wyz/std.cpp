@@ -356,7 +356,7 @@ int main(){
     Board* board=new Board();
     while (Q--){
         int x0,y0,x1,y1;
-        scanf("%d%d%d%d",&x0,&y0,&x1,&y1);
+        scanf("%d%d%d%d",&y0,&x0,&y1,&x1);
         Command cmd(x0,y0,x1,y1);
         if (board->commandValid(cmd)){
             Chess c0=board->getChess(x0,y0);
