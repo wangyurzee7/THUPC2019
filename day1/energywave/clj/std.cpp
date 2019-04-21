@@ -208,6 +208,36 @@ struct P3{
 typedef vector<P3> VP;
 typedef vector<VP> VVP;
 
+struct Rect{
+    db low[3],up[3];
+
+    void read(VVP&A){
+        rep(i,0,3) low[i] = 1e100, up[i] = -1e100;
+        for(auto f:A) for(auto p:f){
+            db cur[] = {p.x,p.y,p.z};
+            rep(i,0,3) low[i] = min(low[i],cur[i]), up[i] = max(up[i],cur[i]);
+        }
+    }
+
+    db vol(){
+        db ret = 1.0;
+        rep(i,0,3){
+            if(sign(up[i] - low[i]) <= 0) return 0;
+            ret *= up[i] - low[i];
+        }
+        return ret;
+    }
+};
+
+Rect intersect(Rect A,Rect B){
+    Rect ret;
+    rep(i,0,3){
+        ret.low[i] = max(A.low[i],B.low[i]);
+        ret.up[i] = min(A.up[i],B.up[i]);
+    }
+    return ret;
+}
+
 db r;
 
 db Acos(db x) {
@@ -383,6 +413,9 @@ VVP convexCut(VVP pss, P3 p, P3 o){ // keep o*(x-p) >= 0
         if(qs.size() > 0 && dif) ret.pb(qs);
     }
     if(sec.size() > 0) ret.pb(convexHull2D(sec,o));
+
+    if(ret.size() < 4) ret = {};
+
     return ret;
 }
 
@@ -415,6 +448,7 @@ VVP BbodyPlane[5]; //3d convexhull plane
 VP BbodyPoints[5]; //3d convexhull points
 
 VVP BbodyPlaneSubSet[1<<5];
+Rect BbodyRectSubset[1<<5];
 
 VVP wavePlane;
 VP wavePoints;
@@ -422,6 +456,8 @@ VP wavePoints;
 P3 v;
 
 VVP intersectTwoConvexHull(VVP hA, VVP hB){
+	if(hA.empty() || hB.empty()) return {};
+
 	for(VP f : hB){
 		auto w = get_face(f);
 		hA = convexCut(hA,w.fi,-w.se);
@@ -471,13 +507,19 @@ vector<db> calcIntersectPointAndPlane(P3 p1,P3 q1,P3 qo,P3 v){
 
 //assume A is moving
 db calc(db t){
-	VP curWavePoints = wavePoints;
-	for(auto&i : curWavePoints) i = i + v * t;
-	VVP curWavePlane = CH3::convexHull3d(curWavePoints);
+	//for(auto&i : curWavePoints) i = i + v * t;
+
+	VVP curWavePlane = wavePlane;
+	for(auto&f : curWavePlane) for(auto&i:f) i = i + v * t;
+
+	Rect R; R.read(curWavePlane);
 
 	db ans = 0;
-	rep(mask,1,1<<mB){
+	rep(mask,1,1<<mB) if(!BbodyPlaneSubSet[mask].empty()){
 		int sign = -1; rep(j,0,mB) if(mask>>j&1) sign *= -1;
+
+		if(intersect(R,BbodyRectSubset[mask]).vol() <= EPS) continue;
+
 		ans += sign * vol(intersectTwoConvexHull(curWavePlane,BbodyPlaneSubSet[mask]));
 	}
 
@@ -520,6 +562,13 @@ db eval(Poly a, db x){
     return ret;
 }
 
+Poly integral(Poly a){
+	Poly ret(a.size() + 1, 0);
+	rep(i,0,a.size())
+		ret[i+1] += a[i] / (i + 1);
+	return ret;
+}
+
 vector<db> solve_two(db a,db b,db c){
     //ax^2+bx+c == 0
     if(sign(a) == 0){
@@ -533,21 +582,12 @@ vector<db> solve_two(db a,db b,db c){
     }
 }
 
-db calc_maximum(Poly a,db l,db r){
-    assert(a.size() == 4);
-
-    Poly d = D(a);
-
-    db ans = max(eval(a,l),eval(a,r));
-
-    for(auto i : solve_two(d[2],d[1],d[0]))
-        if(i >= l && i <= r) ans = max(ans,eval(a,i));
-
-    return ans;
+db calc_integral(Poly a,db l,db r){
+	Poly I = integral(a);
+	return eval(I,r) - eval(I,l);
 }
 
 db solve(db l,db r){
-	//TODO: need to rewrite the following code so it calculates the integral
 
     //four points
     db x[4], y[4];
@@ -571,12 +611,12 @@ db solve(db l,db r){
     //cout<<"-------------"<<endl;
     //for(auto i : ret) cout<<i<<" ";cout<<endl;
 
-    rep(i,0,4) {
+    //rep(i,0,4) {
         //cout<<y[i]<<" "<<eval(ret,x[i])<<endl;
         //assert(sign(y[i] - eval(ret,x[i])) == 0);
-    }
+    //}
 
-    return calc_maximum(ret,l,r);
+    return calc_integral(ret,l,r);
 }
 
 void readConvexBody(VVP&plane,VP&points){
@@ -618,7 +658,7 @@ void calcInterestingTime(VVP&AP,VP&A,VVP&BP,VP&B,P3 v,vector<db>& is){
 }
 
 int main() {
-	freopen("1.in","r",stdin);
+//	freopen("in","r",stdin);
 
 	cin>>mB;
 
@@ -633,10 +673,10 @@ int main() {
  	rep(mask,1,1<<mB){
  		int one = -1; rep(i,0,mB) if(mask>>i&1) one = i;
 
- 		BbodyPlaneSubSet[mask] = BbodyPlane[one];
+ 		if(mask != (1<<one)) BbodyPlaneSubSet[mask] = intersectTwoConvexHull(BbodyPlaneSubSet[mask - (1<<one)],BbodyPlane[one]);
+ 		else BbodyPlaneSubSet[mask] = BbodyPlane[one];
 
- 		rep(j,0,mB) if(j!=one)
- 			BbodyPlaneSubSet[mask] = intersectTwoConvexHull(BbodyPlaneSubSet[mask],BbodyPlane[j]);
+ 		BbodyRectSubset[mask].read(BbodyPlaneSubSet[mask]);
  	}
 
 	vector<db> is;
@@ -653,6 +693,13 @@ int main() {
             is[cnt++] = is[i];
     is.resize(cnt);
 
+//    cout<<cnt<<endl;
+
+/*
+    printf("is:\n");
+    for(auto x : is)
+    	printf("%0.5f\n",(double)x);
+*/
     db ans = 0;
 
 	rep(i,0,is.size() - 1){
