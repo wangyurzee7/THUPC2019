@@ -9,8 +9,6 @@ using LL = long long;
 
 pii a[MAXN + 10], b[MAXN + 10];
 
-// vector<pii> a, b;
-
 bool operator < (const pii& a, const pii& b) { return (LL)a.first * b.second < (LL)a.second * b.first; }
 bool operator == (const pii& a, const pii& b) { return (LL)a.first * b.second == (LL)a.second * b.first; }
 
@@ -56,6 +54,7 @@ struct BIT {
     {
         LL ret = -sum;
         while (x) {
+            // cerr << x << endl;
             ret += c[x] << 1;
             x -= x & -x;
         }
@@ -68,7 +67,7 @@ struct BIT {
         LL cur = -sum;
         for (int i = bit; i >= 0; i--) {
             int pos = ret | (1 << i);
-            if (cur + 2 * c[pos] < 0) {
+            if (pos <= n && cur + 2 * c[pos] < 0) {
                 cur += 2 * c[pos];
                 ret = pos;
             }

@@ -28,3 +28,5 @@ arbiter*
 *.tmp
 **.class
 **.pyc
+function2/input.txt
+function2/std
