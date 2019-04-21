@@ -1,0 +1,14 @@
+args: {n: 1000}
+compile: {c: -O2 -std=c11, cpp: -O2 -std=c++14, java: '', pas: -O2, py: ''}
+data: []
+folder: problem
+memory limit: 512 MiB
+name: game
+partial score: false
+pre: []
+samples: []
+time limit: 1.0
+title: {zh-cn: 老板的游戏}
+type: program
+users: {}
+version: 2

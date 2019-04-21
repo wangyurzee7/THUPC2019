@@ -1,0 +1,16 @@
+ret = [["测试点","$n$","$m$","是否为完全二叉树"]]	#注意右斜杠经常需要两次转义
+for datum in prob['data']:	#引用conf.json/yaml中的变量
+	args = datum['args']
+	row = [
+		','.join(map(str, datum['cases'])),	#Python字符串可以用双引号也可以用单引号
+											#字符串.join(数组)表示把数组的每一项用字符串连接拼成大字符串
+											#map(函数,数组)表示把数组的每一项调用函数后再拼成新的数组
+											#str(变量)函数是把变量转成字符串类型
+		"$= %s$" % tl.hn(args['n']),		#tl.hn函数用于把10000输出成10^{4}这样好看的样子
+											#python的字符串可以直接用百分号格式化成新的字符串
+		r"$\le %s$" % tl.hn(args['m']),		#Python可以用前面加r的禁止转义字符串解决右斜杠需要两次转义的问题
+		"是" if args['bin'] != 0 else "否"
+	]
+	ret.append(row)	#这是python数组的push_back
+base.log.debug(u'输出调试信息')	#渲染题面时会在控制台输出需要调试的信息，不需要可以删除
+return merge_ver(ret)	#这个函数可以把竖直方向上相同的格子合并
