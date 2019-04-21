@@ -1,9 +1,8 @@
 args: {n: 1000}
 compile: {c: -O2 -std=c11, cpp: -O2 -std=c++14, java: '', pas: -O2, py: ''}
 data: 
-	-cases: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-	-score: 100
-
+- cases: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+  score: 100
 folder: problem
 memory limit: 512 MiB
 name: game
@@ -11,12 +10,9 @@ partial score: false
 pre: []
 samples: []
 time limit: 1.0
-title: 
-	zh-cn:  令人难以忘记的题目名称 
+title: {zh-cn:  令人难以忘记的题目名称 }
 type: program
 users: 
-	lvx:
-		std:
-			expected: {==:100}
-			path: "lvx/std.cpp"
+  lvx:
+    std: {expected: ==100, path: "lvx/std.cpp"}
 version: 2
