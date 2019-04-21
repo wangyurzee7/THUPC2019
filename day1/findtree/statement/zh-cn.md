@@ -22,11 +22,7 @@
 
 {{ self.output_file() }}
 
-<<<<<<< HEAD
 输出一行一个数，表示答案。如果图不连通，输出 `-1`。
-=======
-这是 cjk 的输出格式
->>>>>>> ca6ae20fd442764dc8a94f1d0c93a6c3ac5825a0
 
 {{ s('sample', 1) }}
 
@@ -34,10 +30,6 @@
 
 {{ self.title_sample_description() }}
 
-<<<<<<< HEAD
 {{ s('subtasks') }}
 
 $n\le 70$，$w\le 12$，$m\le 5000$。
-=======
-这是 cjk 的样例解释
->>>>>>> ca6ae20fd442764dc8a94f1d0c93a6c3ac5825a0
