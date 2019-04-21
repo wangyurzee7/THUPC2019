@@ -169,7 +169,6 @@ struct Command{
         return ret;
     }
 };
-const Command admitingDefeat(-1,-1,0,0);
 
 class Board
 {
@@ -289,7 +288,6 @@ bool Board::gameover(){
 bool Board::commandValid(const Command& cmd,bool sideConsidered){
     if (gameover()) return false;
 
-    if (cmd==admitingDefeat) return true;
     Chess& chess=getChess(cmd.fromI,cmd.fromJ);
 
     if (!chess.checkXY(cmd.toI,cmd.toJ)) return false;
@@ -334,12 +332,6 @@ bool Board::commandValid(const Command& cmd,bool sideConsidered){
 }
 bool Board::executeCommand(const Command& cmd, bool &eaten){
     if (!commandValid(cmd)) return false;
-    if (cmd==admitingDefeat){
-        _winner=oppSide(nowSide);
-        nowSide=na;
-        _gameover=true;
-        return true;
-    }
     if (getChess(cmd.toI,cmd.toJ).check()){
         removeChess(cmd.toI,cmd.toJ);
         eaten=true;
