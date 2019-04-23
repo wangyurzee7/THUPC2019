@@ -7,7 +7,7 @@ name: furniture
 partial score: false
 pre: []
 samples: []
-time limit: 1.0
+time limit: 5.0
 title: {zh-cn: 摆家具}
 type: program
 users: {}
