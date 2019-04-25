@@ -10,7 +10,7 @@ def chess2str(chess):
 
 R,C=10,9
 
-def initialBoard():
+def initial_board():
     ret=[[None for j in range(C)] for i in range(R)]
     ret[3][0]=ret[3][2]=ret[3][4]=ret[3][6]=ret[3][8]=("red","soldier")
     ret[2][0]=ret[2][8]=("red","duck")
@@ -72,9 +72,9 @@ def checked(board):
     return False
     
 if __name__=='__main__':
-    board=initialBoard();
+    board=initial_board();
     Q=int(input())
-    if Q<0 or Q>200: # validate
+    if Q<0 or Q>1000: # validate
         sys.stdout.write("Q out of range\n")
     gameovered=False
     side,cols=0,("red","blue")
