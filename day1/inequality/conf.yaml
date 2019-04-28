@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 args: {n: 500000, a: 100000}
-=======
-args: {a: 1000000000, n: 500000}
->>>>>>> ef46055c3c8f503299f8c067aab0aac8a7759b64
 compile: {c: -O2 -std=c14, cpp: -O2 -std=c++14, java: '', pas: -O2, py: ''}
 data:
 - cases: [1, 2, 3, 4, 5]
