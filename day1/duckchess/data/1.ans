@@ -1,1 +1,18 @@
-This is the output of the first test case.
+Invalid command
+Invalid command
+Invalid command
+Invalid command
+red guard;NA;no;no
+Invalid command
+blue captain;NA;no;no
+red soldier;NA;no;no
+Invalid command
+Invalid command
+blue elephant;NA;no;no
+red duck;NA;no;no
+blue horse;NA;no;no
+red duck;blue soldier;no;no
+Invalid command
+blue captain;NA;yes;no
+red duck;blue captain;no;yes
+Invalid command

@@ -26,9 +26,13 @@ $$
 
 第一行一个整数 $n$，表示向量的长度及函数的个数。
 
-接下来两行，每行 $n$ 个实数，分别描述向量 $\vec{a},\vec{b}$ 的各个分量，以空格隔开。
+接下来两行，每行 $n​$ 个整数，分别描述向量 $\vec{a},\vec{b}​$ 的各个分量，以空格隔开。
 
+<<<<<<< HEAD
+对于所有的输入数据，都满足 $1\le n\le {{tl.hn(prob.args['n'])}},\lvert a_i\rvert ,\lvert b_i\rvert <{{tl.hn(prob.args['a'])}}$。
+=======
 对于所有的输入数据，都满足 $n\le {{tl.hn(prob.args['n'])}},0\le\lvert a_i\rvert ,\lvert b_i\rvert < {{tl.hn(prob.args['a'])}}$。
+>>>>>>> ef46055c3c8f503299f8c067aab0aac8a7759b64
 
 {{ s('output format') }}
 
@@ -45,14 +49,6 @@ $$
 $f_1(x)=\lvert x+1\rvert$，显然在 $x=-1$ 处取到最小值 $0$；
 
 $f_2(x)=\lvert x+1\rvert +\lvert x+2\rvert$，可以证明其在 ​$[-2,-1]$ 中任意位置取到最小值 ​$1$。
-
-{{ s('sample', 2) }}
-
-{{ self.sample_file() }}
-
-{{ s('subtasks') }}
-
-{{ tbl('data') }}
 
 {{ s('后记') }}
 

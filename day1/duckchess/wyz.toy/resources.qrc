@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/image">
+        <file>images/classic/blue_captain.png</file>
+        <file>images/classic/red_captain.png</file>
+        <file>images/classic/blue_car.png</file>
+        <file>images/classic/red_car.png</file>
+        <file>images/classic/chessboard.jpg</file>
+        <file>images/classic/blue_elephant.png</file>
+        <file>images/classic/red_elephant.png</file>
+        <file>images/classic/blue_guard.png</file>
+        <file>images/classic/red_guard.png</file>
+        <file>images/classic/blue_duck.png</file>
+        <file>images/classic/red_duck.png</file>
+        <file>images/classic/blue_horse.png</file>
+        <file>images/classic/red_horse.png</file>
+        <file>images/classic/blue_soldier.png</file>
+        <file>images/classic/red_soldier.png</file>
+        <file>images/classic/red.png</file>
+        <file>images/classic/blue.png</file>
+        <file>images/classic/btn_new.png</file>
+        <file>images/classic/btn_new_hilight.png</file>
+        <file>images/classic/btn_skin.png</file>
+        <file>images/classic/btn_skin_hilight.png</file>
+    </qresource>
+    <qresource prefix="/audio">
+		<file>sounds/eat.wav</file>
+        <file>sounds/warning.wav</file>
+    </qresource>
+</RCC>
