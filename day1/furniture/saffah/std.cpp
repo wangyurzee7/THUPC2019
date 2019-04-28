@@ -6,7 +6,7 @@ typedef long long ll;
 #define h(x, y, z) for(int x = (y); x >= (z); --x)
 
 const int P = 998244353;
-int _s[20][1000007], _t[20][1000007];
+int s[20][1000007];
 
 struct Matrix
 {
@@ -56,46 +56,49 @@ Matrix pre2[5007];
 
 int main()
 {
+    int n, k, q; scanf("%d%d%d", &n, &k, &q);
     C[0][0] = 1;
     g(i, 1, 20)
     {
         C[i][0] = 1;
         g(j, 1, 20) C[i][j] = (C[i - 1][j] + C[i - 1][j - 1]) % P;
     }
-    g(i, 0, 20) f(j, 0, i) C[i][j] = qpow(C[i][j], P - 2);
-    int n, k, q; scanf("%d%d%d", &n, &k, &q);
+    g(i, 0, 20) f(j, 0, i) C[i][j] = qpow((ll) C[i][j] * qpow(n - 1, j) % P, P - 2);
     int N = 1;
     g(_, 0, k) N *= n;
-    g(i, 0, N) scanf("%d", _s[0] + i);
-    auto s = _s; auto t = _t;
+    g(i, 0, N) scanf("%d", s[0] + i);
     int pd = 1;
+    cerr << clock() << endl;
     g(d, 0, k)
     {
-        memcpy(t, s, sizeof(_s));
-        
-        g(i, 0, N) if(!(i / pd % n)) f(od, 0, d)
+        g(i, 0, N) if(!(i / pd % n)) h(od, d, 0)
         {
             ll cs = 0;
             g(j, 0, n) cs += s[od][i + pd * j];
-            cs %= P;
-            g(j, 0, n) t[od + 1][i + pd * j] = (cs + P - s[od][i + pd * j] + t[od + 1][i + pd * j]) % P;
+            cs = cs % P + P;
+            g(j, 0, n) s[od + 1][i + pd * j] = (cs - s[od][i + pd * j] + s[od + 1][i + pd * j]) % P;
         }
-        
         pd *= n;
-        swap(s, t);
     }
+    // g(i, 0, N) f(d, 0, k) printf("s %d %d = %d\n", i, d, s[d][i]);
+    
+    cerr << clock() << endl;
     
     Matrix A; memset(&A, 0, sizeof(A));
     g(i, 0, 20)
     {
         if(i && i <= k) A.a[i][i - 1] = i;
-        if(i < k) A.a[i][i + 1] = k - i;
+        if(i < k) A.a[i][i + 1] = (k - i) * (n - 1);
+        if(i >= 0 && i <= k) A.a[i][i] = i * (n - 2);
     }
     pre[0].a[0] = 1;
     f(i, 0, 200000) pre[i + 1] = pre[i] * A;
     pre2[0] = unit();
+    cerr << clock() << endl;
+    
     Matrix B = qpow(A, 200000);
     f(i, 0, 5000) pre2[i + 1] = pre2[i] * B;
+    cerr << clock() << endl;
     
     int R = 1;
     while(q--)
@@ -107,5 +110,6 @@ int main()
         f(d, 0, k) ans = (ans + (ll) s[d][a] * r.a[d] % P * C[k][d]) % P;
         printf("%d\n", R = ans);
     }
+    cerr << clock() << endl;
     return 0;
 }
