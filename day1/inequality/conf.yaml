@@ -1,4 +1,4 @@
-args: {a: 1000000000, n: 500000}
+args: {n: 500000, a: 100000}
 compile: {c: -O2 -std=c14, cpp: -O2 -std=c++14, java: '', pas: -O2, py: ''}
 data:
 - cases: [1, 2, 3, 4, 5]
