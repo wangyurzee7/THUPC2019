@@ -522,153 +522,21 @@ db calc(db t, bool out = 0){
 	VVP curWavePlane = wavePlane;
 	for(auto&f : curWavePlane) for(auto&i:f) i = i + v * t;
 
-    if(out){
-        for(auto f : curWavePlane) for(auto i:f) i.print();
-    }
-
 	Rect R; R.read(curWavePlane);
 
 	db ans = 0;
 	rep(mask,1,1<<mB) if(!BbodyPlaneSubSet[mask].empty()){
 		int sign = -1; rep(j,0,mB) if(mask>>j&1) sign *= -1;
-
 		if(intersect(R,BbodyRectSubset[mask]).vol() <= EPS) continue;
-
         db sign_tmp = sign * vol(intersectTwoConvexHull(curWavePlane,BbodyPlaneSubSet[mask]));
-
-        if(out && mask == 9) {
-            for(auto f : BbodyPlaneSubSet[mask]) for(auto i:f) i.print();
-            fprintf(stderr, "%d\n",intersectTwoConvexHull(curWavePlane,BbodyPlaneSubSet[mask]).size());
-            fprintf(stderr, "%d:%0.10f\n",mask,(double)sign_tmp);
-        }
-
 		ans += sign_tmp;
-
-        //cout<<"TEST:"<<vol(intersectTwoConvexHull(curWavePlane,BbodyPlaneSubSet[mask]))<<" "<<intersect(R,BbodyRectSubset[mask]).vol()<<endl;
 	}
 
 	return ans;
 }
 
-typedef vector<db> Poly;
-
-Poly operator*(Poly a,Poly b){
-    Poly ret(a.size() + b.size() - 1, 0);
-    rep(i,0,a.size()) rep(j,0,b.size())
-        ret[i+j] += a[i] * b[j];
-    return ret;
-}
-
-Poly operator+(Poly a,Poly b){
-    if(a.size() < b.size()) swap(a,b);
-    rep(i,0,b.size()) a[i] += b[i];
-    return a;
-}
-
-Poly mul(Poly a, db x){
-    for(auto&i : a) i *= x; return a;
-}
-
-Poly div(Poly a,db x){
-    for(auto&i : a) i /= x; return a;
-}
-
-Poly D(Poly a){
-    Poly ret(a.size() - 1, 0);
-    rep(i,1,a.size()) ret[i-1] += a[i] * i;
-    return ret;
-}
-
-db eval(Poly a, db x){
-    db ret = 0;
-    for(int i = a.size() - 1; i >= 0; --i)
-        ret =  ret * x + a[i];
-    return ret;
-}
-
-Poly integral(Poly a){
-	Poly ret(a.size() + 1, 0);
-	rep(i,0,a.size())
-		ret[i+1] += a[i] / (i + 1);
-	return ret;
-}
-
-vector<db> solve_two(db a,db b,db c){
-    //ax^2+bx+c == 0
-    if(sign(a) == 0){
-        if(sign(b)) return {-c/b};
-        else return {};
-    } else {
-        db del = b*b - 4 * a * c;
-        if(sign(del) < 0) return {};
-        del = max(del, (db)0);
-        return {(-b-sqrt(del))/(2*a),(-b+sqrt(del))/(2*a)};
-    }
-}
-
-db calc_integral(Poly a,db l,db r){
-	Poly I = integral(a);
-	return eval(I,r) - eval(I,l);
-}
-
-db TOTAL_ERROR = 0;
-
 db solve(db l,db r){
     return (calc(l) + 4 * calc((l + r) / 2) + calc(r))/ 6 * (r - l);
-
-    //four points
-    db x[4], y[4];
-    rep(i,0,4) {
-        x[i] = l + (r-l)/3 * i; 
-        y[i] = calc(x[i]);
-        //cerr<<x[i]<<" "<<y[i]<<endl;
-        //cout<<y[i]<<endl;
-    }
-
-    Poly ret = {};
-
-    rep(i,0,4){
-        Poly tmp = {1};
-        rep(j,0,4) if(i!=j){
-            tmp = tmp * (Poly){-x[j],1};
-            tmp = div(tmp,(x[i] - x[j]));
-        }
-        ret = ret + mul(tmp,y[i]);
-    }
-
-    //cout<<"-------------"<<endl;
-    //for(auto i : ret) cout<<i<<" ";cout<<endl;
-
-//    rep(i,0,4) {
-//       cerr<<y[i]<<" "<<eval(ret,x[i])<<endl;
-//       assert(sign(y[i] - eval(ret,x[i])) == 0);
-//    }
-
-    db test_x = l + (r - l) * 0.17;
-
-    //fprintf(stderr, "test_x:%0.10f\n", (double)calc(test_x));
-    /*
-    printf("test_x:%0.10f\n", (double)calc(test_x,1));
-    printf("test_x:%0.10f\n", (double)calc(test_x,1));
-    printf("test_x:%0.10f\n", (double)calc(test_x,1));
-    printf("test_x:%0.10f\n", (double)calc(test_x,1));
-    printf("test_x:%0.10f\n", (double)calc(test_x,1));
-    printf("test_x:%0.10f\n", (double)calc(test_x,1));
-    printf("test_x:%0.10f\n", (double)calc(test_x,1));
-    printf("test_x:%0.10f\n", (double)calc(test_x,1));
-    printf("test_x:%0.10f\n", (double)calc(test_x,1));
-    printf("test_x:%0.10f\n", (double)calc(test_x,1));
-    */
-
-    //fprintf(stderr, "%0.10f %0.10f\n",(double)calc(test_x),(double)eval(ret,test_x));
-    //fprintf(stderr, "%0.10f\n",(double)abs(calc(test_x) - eval(ret,test_x)));
-
-    TOTAL_ERROR += (r - l) * abs(calc(test_x) - eval(ret,test_x));
-    //cerr<<calc(test_x)<<" "<<eval(ret,test_x)<<endl;
-
-    //assert(abs(calc(test_x) - eval(ret,test_x)) <= 1e-7);
-
-    return calc_integral(ret,l,r);
 }
 
 void readConvexBody(VVP&plane,VP&points){
@@ -681,16 +549,12 @@ void readConvexBody(VVP&plane,VP&points){
 bool onSide(P3 p,VP ps){
     //is p on the side of ps?
     int n = ps.size();
-    //cout<<n<<endl;
 
     db area = 0;
     rep(i,1,n-1) area += ((ps[i] - ps[0])^(ps[i+1] - ps[0])).abs();
 
     db test_area = 0;
     rep(i,0,n) test_area += ((ps[i] - p)^(ps[(i+1)%n] - p)).abs();
-
-    //cout<<test_area<<" "<<area<<endl;
-    //return true;
 
     return test_area <= area * 1.01;
 }
@@ -703,8 +567,6 @@ bool isSS_P3(P3 p1,P3 p2,P3 q1,P3 q2){
     P3 x = {1278,8787,-1578}; x = x.norm();
 
     x = (x ^ o).norm(); P3 y = (x ^ o).norm();
-
-    //return 1;
 
     return isSS({p1*x,p1*y},{p2*x,p2*y},{q1*x,q1*y},{q2*x,q2*y});
 }
@@ -722,7 +584,6 @@ void calcInterestingTime(VVP&AP,VP&A,VVP&BP,VP&B,P3 v,vector<db>& is){
                     auto cur = pA + v * x;
                     //is cur on fB?
                     if(onSide(cur,fB)){
-                       //cout<<"good1"<<endl;
 					   is.pb(x);
                     }
                 }
@@ -749,31 +610,10 @@ void calcInterestingTime(VVP&AP,VP&A,VVP&BP,VP&B,P3 v,vector<db>& is){
                     auto cur = pB - v * x;
                     //is cur on fA?
                     if(onSide(cur,fA)){
-                       //cout<<"good2"<<endl;
 					   is.pb(x);
                     }
                 }
 		}
-}
-
-void print(db t){
-    //16.78830
-
-    //A
-    cout<<"{";
-    for(auto i : BbodyPoints[0]){
-
-        cout<<"{"<<i.x<<","<<i.y<<","<<i.z<<"},";
-    }
-    cout<<"}"<<endl;
-
-    //A
-    cout<<"{";
-    for(auto _ : wavePoints){
-        auto i = _ + v * t;
-        cout<<"{"<<i.x<<","<<i.y<<","<<i.z<<"},";
-    }
-    cout<<"}"<<endl;
 }
 
 VP get_points(VVP pps){
@@ -784,7 +624,6 @@ VP get_points(VVP pps){
 }
 
 int main() {
-//	freopen("in","r",stdin);
 
 	cin>>mB;
 
@@ -794,12 +633,6 @@ int main() {
 
 	readConvexBody(wavePlane,wavePoints);
 
-    /*
-    for(auto f : wavePlane)
-        for(auto p : f)
-            p.print();
-    */
-
  	v.read();
 
  	rep(mask,1,1<<mB){
@@ -808,38 +641,10 @@ int main() {
  		if(mask != (1<<one)) BbodyPlaneSubSet[mask] = intersectTwoConvexHull(BbodyPlaneSubSet[mask - (1<<one)],BbodyPlane[one]);
  		else BbodyPlaneSubSet[mask] = BbodyPlane[one];
 
- 		BbodyRectSubset[mask].read(BbodyPlaneSubSet[mask]);
-
-        //cerr<<mask<<" "<<vol(BbodyPlaneSubSet[mask])<<endl;
-        
-        /*
-            if(mask == 1){
-                cout<<mask<<" "<<BbodyPlaneSubSet[mask].size()<<endl;
-                for(auto f : BbodyPlaneSubSet[mask]){
-                    cout<<f.size()<<endl;
-                    for(auto p : f)
-                        p.print();        
-                }
-            } 
-        */
-        
+ 		BbodyRectSubset[mask].read(BbodyPlaneSubSet[mask]);        
  	}
 
-//    cerr<<solve(36.6285184081,36.6468750777)<<endl;
-
-//    return 0;
-
-    //cerr<<solve(38.3435426671,39.3435721425)<<endl;
-
-    //cerr<<"----------------"<<endl;
-
-    //cerr<<solve(38.34354,39.34357)<<endl;
-
-    //print(38.3435426671);
-
 	vector<db> is;
-
-    //rep(i,0,mB) calcInterestingTime(wavePlane,wavePoints,BbodyPlane[i],BbodyPoints[i],v,is);
 
 	rep(mask,1,(1<<mB)){
         auto points = get_points(BbodyPlaneSubSet[mask]);
@@ -854,32 +659,12 @@ int main() {
             is[cnt++] = is[i];
     is.resize(cnt);
 
-/*
-    print(16.04311);
-    print(16.78830);
-    print(17.02116);
-    print(17.53031);
-*/
-
-/*
-    cerr<<cnt<<endl;
-
-
-    printf("----------------------\n");
-    printf("is:\n");
-    for(auto x : is)
-    	printf("%0.10f\n",(double)x);
-    printf("----------------------\n");
-
-*/
-
 
     db ans = 0;
 
     db pre = calc(is[0]);
 
 	rep(i,0,is.size() - 1){
-//		cout<<i<<endl;
 		db l = is[i], r = is[i + 1];
 
         db cur = calc(r);
@@ -889,32 +674,8 @@ int main() {
 
         pre = cur;
         ans += tmp;
-
-        //printf("[%0.10f,%0.10f]: %0.5f\n",(double)l,(double)r,(double)tmp);
-        //cerr<<solve(38.34354,39.34357)<<endl;
 	}
-
-//  cerr<<solve(38.3435426671,39.3435721425)<<endl;
-
 
 	printf("%0.10f\n",(double)ans);
-    //printf("%0.10f\n",(double)TOTAL_ERROR);
-
-    //fprintf(stderr, "%0.10f\n",(double)ans);
-    //fprintf(stderr, "%0.10f\n",(double)TOTAL_ERROR);
-
-/*
-	printf("DEBUG\n");
-	db l = is[0], r = is.back();
-	rep(i,0,100){
-		db x = (l*(100-i) + r * i)/100;
-		printf("%0.5f : %0.5f\n",(double)x,(double)calc(x));
-	}
-*/
-/*
-    rep(i,0,30){
-        printf("%d: %0.10lf\n", i, (double) calc(1.0*i));
-    }
-*/
 	return 0;
 }
