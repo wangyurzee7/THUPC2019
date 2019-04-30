@@ -30,13 +30,16 @@ inline int inv(int a) {
 int n, k, q;
 int N;
 
+int cur_level;
+
 struct Data {
 	int a[MAXK + 1];
 };
 
 Data operator + (const Data &a, const Data &b) {
 	Data ret;
-	for (int i = 0; i <= k; i++) {
+	memset(&ret, 0, (k + 1) * sizeof(int));
+	for (int i = 0; i <= cur_level; i++) {
 		ret.a[i] = (a.a[i] + b.a[i]) % P;
 	}
 	return ret;
@@ -44,7 +47,8 @@ Data operator + (const Data &a, const Data &b) {
 
 Data operator - (const Data &a, const Data &b) {
 	Data ret;
-	for (int i = 0; i <= k; i++) {
+	memset(&ret, 0, (k + 1) * sizeof(int));
+	for (int i = 0; i <= cur_level; i++) {
 		ret.a[i] = (a.a[i] + P - b.a[i]) % P;
 	}
 	return ret;
@@ -52,8 +56,8 @@ Data operator - (const Data &a, const Data &b) {
 
 Data shift(const Data &a) {
 	Data ret;
-	ret.a[0] = 0;
-	for (int i = 1; i <= k; i++) {
+	memset(&ret, 0, (k + 1) * sizeof(int));
+	for (int i = 1; i <= cur_level; i++) {
 		ret.a[i] = a.a[i - 1];
 	}
 	return ret;
@@ -61,6 +65,7 @@ Data shift(const Data &a) {
 
 Data a[MAXN];
 Data b[MAXN];
+Data *_b[MAXK + 1];
 
 void magic(int base, Data *a, int N) {
 	if (N == 1) {
@@ -68,8 +73,15 @@ void magic(int base, Data *a, int N) {
 		return;
 	}
 	
+	++cur_level;
 	int N1 = N / n;
-	Data *b = new Data[N1];
+	Data *b;
+	if (_b[cur_level]) {
+		b = _b[cur_level];
+	} else {
+		b = new Data[N1];
+		_b[cur_level] = b;
+	}
 	memset(b, 0, N1 * sizeof(Data));
 	for (int i = 0; i < n; i++) {
 		Data *ai = a + i * N1;
@@ -91,6 +103,7 @@ void magic(int base, Data *a, int N) {
 			b[j] = b[j] + shift(ai[j]) - ai[j];
 		}
 	}
+	--cur_level;
 }
 
 struct Matr {

@@ -1,18 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define rep(i,a,n) for (int i=a;i<(n);i++)
+#define rep(i,a,n) for(int i=(a);i<(n);i++)
+#define per(i,a,n) for(int i=(n)-1;i>=(a);i--)
 #define mp make_pair
+#define pb push_back
 #define fi first
 #define se second
-#define pb push_back
 
-typedef long double db;
+typedef double db;
 
 const db EPS = 1e-9;
 
 const db pi = acos(-1.0);
-
-inline int sign(db a,db eps = EPS) { return a < -eps ? -1 : a > eps; }
+  
+inline int sign(db a) { return a < -EPS ? -1 : a > EPS; }
   
 inline int cmp(db a, db b){ return sign(a-b); }
   
@@ -64,8 +65,6 @@ struct L{ //ps[0] -> ps[1]
   
 #define cross(p1,p2,p3) ((p2.x-p1.x)*(p3.y-p1.y)-(p3.x-p1.x)*(p2.y-p1.y))
 #define crossOp(p1,p2,p3) sign(cross(p1,p2,p3))
-
-#define crossOp2(p1,p2,p3) sign(cross(p1,p2,p3),1e-9)
   
 bool chkLL(P p1, P p2, P q1, P q2) {
     db a1 = cross(q1, q2, p1), a2 = -cross(q1, q2, p2);
@@ -86,8 +85,8 @@ bool intersect(db l1,db r1,db l2,db r2){
   
 bool isSS(P p1, P p2, P q1, P q2){
     return intersect(p1.x,p2.x,q1.x,q2.x) && intersect(p1.y,p2.y,q1.y,q2.y) && 
-    crossOp2(p1,p2,q1) * crossOp2(p1,p2,q2) <= 0 && crossOp2(q1,q2,p1)
-            * crossOp2(q1,q2,p2) <= 0;
+    crossOp(p1,p2,q1) * crossOp(p1,p2,q2) <= 0 && crossOp(q1,q2,p1)
+            * crossOp(q1,q2,p2) <= 0;
 }
   
 bool isSS_strict(P p1, P p2, P q1, P q2){
@@ -163,8 +162,7 @@ int contain(vector<P> ps, P p){ //2:inside,1:on_seg,0:outside
 }
   
 vector<P> convexHull(vector<P> ps) {
-    int n = ps.size(); //assert(n >= 3);
-    if(n <= 1) return ps;
+    int n = ps.size(); if(n <= 1) return ps;
     sort(ps.begin(), ps.end());
     vector<P> qs(n * 2); int k = 0;
     for (int i = 0; i < n; qs[k++] = ps[i++]) 
@@ -181,7 +179,7 @@ struct P3{
     db x,y,z;
     P3 operator+(P3 o){ return {x+o.x,y+o.y,z+o.z}; }
     P3 operator-(P3 o){ return {x-o.x,y-o.y,z-o.z}; }
-    P3 operator-() const{ return {-x,-y,-z}; }
+    P3 operator-(){ return {-x,-y,-z}; }
 
     db operator*(P3 o){ return x*o.x+y*o.y+z*o.z; }
     P3 operator^(P3 o){ return {y*o.z-z*o.y,z*o.x-x*o.z,x*o.y-y*o.x}; }
@@ -204,43 +202,12 @@ struct P3{
         cin>>x>>y>>z;
     }
     void print(){
-        cout<<x<<","<<y<<","<<z<<endl;
+        //printf("%lf,%lf,%lf\n",x,y,z);
     }
 };
 
 typedef vector<P3> VP;
 typedef vector<VP> VVP;
-
-struct Rect{
-    db low[3],up[3];
-
-    void read(VVP&A){
-        rep(i,0,3) low[i] = 1e100, up[i] = -1e100;
-
-        for(auto f:A) for(auto p:f){
-            db cur[] = {p.x,p.y,p.z};
-            rep(i,0,3) low[i] = min(low[i],cur[i]), up[i] = max(up[i],cur[i]);
-        }
-    }
-
-    db vol(){
-        db ret = 1.0;
-        rep(i,0,3){
-            if(sign(up[i] - low[i]) <= 0) return 0;
-            ret *= up[i] - low[i];
-        }
-        return ret;
-    }
-};
-
-Rect intersect(Rect A,Rect B){
-    Rect ret;
-    rep(i,0,3){
-        ret.low[i] = max(A.low[i],B.low[i]);
-        ret.up[i] = min(A.up[i],B.up[i]);
-    }
-    return ret;
-}
 
 db r;
 
@@ -362,14 +329,14 @@ namespace CH3{
             (q[i].y-q[0].y)*(q[1].x-q[0].x)) swap(q[1],q[i]),swap(p[1],p[i]);
         wrap(0,1);
 
-        VP new_p;
-        for(auto i : vt) new_p.pb(p[i]);
+    	VP new_p;
+    	for(auto i : vt) new_p.pb(p[i]);
         return new_p;
     }
 }
 
 VP convexHull2D(VP ps,P3 o){
-    P3 x = {12745,78721,-87814}; x = x.norm();
+    P3 x = {rand(),rand(),rand()}; x = x.norm();
 
     x = (x ^ o).norm(); P3 y = (x ^ o).norm();
 
@@ -388,12 +355,11 @@ VVP unite_tri(VVP pss){
         P3 o = ((ps[1] - ps[0]) ^ (ps[2] - ps[0])).norm();
         for(auto i : ps) by_norm[o].pb(i);
     }
-    for(auto it:by_norm) ret.pb(convexHull2D(it.se,-it.fi));
+    for(auto it:by_norm) ret.pb(convexHull2D(it.se,it.fi));
     return ret;
 }
 
 pair<P3,P3> get_face(VP ps){
-    assert(ps.size() >= 3);
     return mp(ps[0],((ps[1]-ps[0])^(ps[2]-ps[0])).norm());
 }
 
@@ -401,7 +367,6 @@ VVP convexCut(VVP pss, P3 p, P3 o){ // keep o*(x-p) >= 0
     VVP ret; VP sec;
     for(auto ps : pss){
         int n = ps.size();
-        //cerr<<n<<endl;
         VP qs; bool dif = 0;
         rep(i,0,n){
             int d1 = sign(o*(ps[i]-p));
@@ -414,25 +379,15 @@ VVP convexCut(VVP pss, P3 p, P3 o){ // keep o*(x-p) >= 0
             }
             if(d1 == 0) sec.pb(ps[i]);
             else dif = 1;
-            dif |= o * ((ps[(i+1)%n] - ps[i]) ^ (ps[(i+2)%n]-ps[i])).norm() < -EPS;
+            dif |= o * ((ps[(i+1)%n] - ps[i]) ^ (ps[(i+2)%n]-ps[i])) < -EPS;
         }
-        if(qs.size() >= 3 && dif) ret.pb(qs);
+        if(qs.size() > 0 && dif) ret.pb(qs);
     }
-    if(sec.size() > 0) {
-        sec = convexHull2D(sec,o);
-        if(sec.size() >= 3) ret.pb(sec);
-    }
-
-    if(ret.size() < 4) ret = {};
-
+    if(sec.size() > 0) ret.pb(convexHull2D(sec,o));
     return ret;
 }
 
 db vol(VVP pss){
-    if(pss.empty()) return 0.0;
-
-    pss = unite_tri(pss);
-
     P3 p = pss[0][0];
     db V = 0;
     for(auto ps : pss){
@@ -442,240 +397,123 @@ db vol(VVP pss){
     return V/6;
 }
 
-VP readVP(int n){
-	VP ret;
-	rep(i,0,n) {P3 p; p.read(); ret.pb(p); }
-	return ret;
+default_random_engine generator;
+
+int small_rand(int l,int r){
+	std::uniform_int_distribution<int> distribution(l,r);
+	return distribution(generator);
 }
 
-
-//global data
-
-int mB; // at most 5
-
-VVP BbodyPlane[5]; //3d convexhull plane
-VP BbodyPoints[5]; //3d convexhull points
-
-VVP BbodyPlaneSubSet[1<<5];
-Rect BbodyRectSubset[1<<5];
-
-VVP wavePlane;
-VP wavePoints;
-
-P3 v;
-
-VVP intersectTwoConvexHull(VVP hA, VVP hB){
-	if(hA.empty() || hB.empty()) return {};
-
-	for(VP f : hB){
-		auto w = get_face(f);
-		hA = convexCut(hA,w.fi,-w.se);
-        if(hA.empty()) break;
-	}
-	return hA;
+P3 gen_in_box(int low[3],int up[3]){
+	return {small_rand(low[0],up[0]),small_rand(low[1],up[1]),small_rand(low[2],up[2])};
 }
 
-vector<db> calcIntersectTwoLines(P3 p1,P3 p2,P3 q1,P3 q2,P3 v){
-	//<p1,p2> move along direction v, when they touch q1,q2
+VP gen_in_box(int low[3],int up[3],int cnt){
+	VP ps;
+	rep(_,0,5) ps.pb(gen_in_box(low,up));
 
-	P3 dp = (p2-p1).norm();
-	P3 dq = (q2-q1).norm();
+	ps = CH3::convexHull3d_points(ps);
 
-	P3 o = (p2-p1) ^ v;
-
-	if(sign(o.abs()) == 0){//no move
-		return {};
+	while(ps.size() < cnt){
+		ps.pb(gen_in_box(low,up));
+		ps = CH3::convexHull3d_points(ps);
 	}
 
-	o = o.norm();
-
-	P3 o2 = (dp ^ dq);
-
-	if(sign(o2.abs()) == 0){ //parallel
-
-		if(sign(q1*o - p1*o) == 0 && sign(q2*o - p1*o) == 0 ){
-			//same plane
-			P3 dir = (o ^ v).norm();
-			db x = dir * (q1-p1);
-            if(sign(v * dir) == 0) return {};
-			return {x / (v * dir)};
-		} else {
-			return {};
-		}
-	} else {
-		o2 = o2.norm();
-        if(sign(v*o2) == 0) return {};
-		return {( (q1 - p1) * o2 ) / (v * o2) };
-	}
+	return ps;
 }
 
-vector<db> calcIntersectPointAndPlane(P3 p1,P3 q1,P3 qo,P3 v){
-	//move p1 along v , when intersect q1, qo
-	db mv = (v * qo); if(sign(mv) == 0) return {};
-	return {( (q1 - p1) * qo ) / mv};
+const int trail = 5;
+
+void fix(int x[2],int l,int r){
+	int val[trail]; rep(i,0,trail) val[i] = small_rand(l,r);
+	sort(val,val+trail);
+	x[0] = val[0];
+	x[1] = val[trail-1];
 }
 
-//assume A is moving
-db calc(db t, bool out = 0){
-	//for(auto&i : curWavePoints) i = i + v * t;
+int main(int argc,char*argv[]) {
+	ios::sync_with_stdio(false);
 
-	VVP curWavePlane = wavePlane;
-	for(auto&f : curWavePlane) for(auto&i:f) i = i + v * t;
+	int n = atoi(argv[1]); //both size n
+	int box = atoi(argv[2]); 
+	int id = atoi(argv[3]);
+    int mB = atoi(argv[4]);
+    
+	string tp = argv[5];
 
-	Rect R; R.read(curWavePlane);
+    generator = default_random_engine(id);
 
-	db ans = 0;
-	rep(mask,1,1<<mB) if(!BbodyPlaneSubSet[mask].empty()){
-		int sign = -1; rep(j,0,mB) if(mask>>j&1) sign *= -1;
-		if(intersect(R,BbodyRectSubset[mask]).vol() <= EPS) continue;
-        db sign_tmp = sign * vol(intersectTwoConvexHull(curWavePlane,BbodyPlaneSubSet[mask]));
-		ans += sign_tmp;
-	}
+	if(tp == string("rect")){
+		cout<<mB<<endl;
+		int x[2],y[2],z[2];
+		//B
+		rep(_,0,mB){
+			fix(x,0,box);fix(y,0,box);fix(z,box,2*box);
 
-	return ans;
-}
-
-db solve(db l,db r){
-    return (calc(l) + 4 * calc((l + r) / 2) + calc(r))/ 6 * (r - l);
-}
-
-void readConvexBody(VVP&plane,VP&points){
-	int n; cin>>n;
-	points = readVP(n);
-	plane = CH3::convexHull3d(points);
-    plane = unite_tri(plane);
-}
-
-bool onSide(P3 p,VP ps){
-    //is p on the side of ps?
-    int n = ps.size();
-
-    db area = 0;
-    rep(i,1,n-1) area += ((ps[i] - ps[0])^(ps[i+1] - ps[0])).abs();
-
-    db test_area = 0;
-    rep(i,0,n) test_area += ((ps[i] - p)^(ps[(i+1)%n] - p)).abs();
-
-    return test_area <= area * 1.01;
-}
-
-bool isSS_P3(P3 p1,P3 p2,P3 q1,P3 q2){
-    //is p1,p2,q1,q2 intersect?
-
-    P3 o = get_face({p1,p2,q1}).second;
-
-    P3 x = {1278,8787,-1578}; x = x.norm();
-
-    x = (x ^ o).norm(); P3 y = (x ^ o).norm();
-
-    return isSS({p1*x,p1*y},{p2*x,p2*y},{q1*x,q1*y},{q2*x,q2*y});
-}
-
-void calcInterestingTime(VVP&AP,VP&A,VVP&BP,VP&B,P3 v,vector<db>& is){
-	//find all interesting time
-
-	//point in A, plane in B
-
-	for(auto pA : A)
-		for(auto fB : BP){
-			auto tmp = get_face(fB);
-			for(auto x : calcIntersectPointAndPlane(pA,tmp.fi,tmp.se,v)){
-				if(x > 0){
-                    auto cur = pA + v * x;
-                    //is cur on fB?
-                    if(onSide(cur,fB)){
-					   is.pb(x);
-                    }
-                }
-            }
-		}
-		
-	//line in A, line in B
-	for(auto fA : AP)
-		for(auto fB : BP){
-			rep(i,0,fA.size())
-				rep(j,0,fB.size())
-					for(auto x : calcIntersectTwoLines(fA[i],fA[(i+1)%fA.size()],fB[j],fB[(j+1)%fB.size()],v))
-						if(x > 0 && isSS_P3(fA[i] + v * x, fA[(i+1)%fA.size()] + v * x,fB[j],fB[(j+1)%fB.size()])){
-							is.pb(x);
-                        }
+			cout<<8<<endl;
+			rep(ix,0,2) rep(iy,0,2) rep(iz,0,2)
+				cout<<x[ix]<<" "<<y[iy]<<" "<<z[iz]<<endl;
 		}
 
-	//plane in A, point in B
-	for(auto pB : B)
-		for(auto fA : AP){
-			auto tmp = get_face(fA);
-			for(auto x :calcIntersectPointAndPlane(pB,tmp.fi,tmp.se,-v))
-				if(x > 0){
-                    auto cur = pB - v * x;
-                    //is cur on fA?
-                    if(onSide(cur,fA)){
-					   is.pb(x);
-                    }
-                }
-		}
-}
+		//A
+		fix(x,0,box);fix(y,0,box);fix(z,0,box);
 
-VP get_points(VVP pps){
-    VP ret;
-    for(auto f:pps) for(auto p :f)
-        ret.pb(p);
-    return ret;
-}
+		cout<<8<<endl;
+		rep(ix,0,2) rep(iy,0,2) rep(iz,0,2)
+			cout<<x[ix]<<" "<<y[iy]<<" "<<z[iz]<<endl;
 
-int main() {
+		cout<<small_rand(0,100)/500.0<<" "<<small_rand(0,100)/500.0<<" "<<1<<endl;
 
-	cin>>mB;
-
-	rep(i,0,mB) {
-		readConvexBody(BbodyPlane[i],BbodyPoints[i]);
+		return 0;
 	}
 
-	readConvexBody(wavePlane,wavePoints);
+	/*
+	if(tp == string("rect-simple")){
+		cout<<8<<" "<<8<<endl;
 
- 	v.read();
+		//A
+		int x[2],y[2],z[2];
+		fix(x,0,box);fix(y,0,box);fix(z,0,box);
 
- 	rep(mask,1,1<<mB){
- 		int one = -1; rep(i,0,mB) if(mask>>i&1) one = i;
+		rep(ix,0,2) rep(iy,0,2) rep(iz,0,2)
+			cout<<x[ix]<<" "<<y[iy]<<" "<<z[iz]<<endl;
 
- 		if(mask != (1<<one)) BbodyPlaneSubSet[mask] = intersectTwoConvexHull(BbodyPlaneSubSet[mask - (1<<one)],BbodyPlane[one]);
- 		else BbodyPlaneSubSet[mask] = BbodyPlane[one];
+		cout<<0<<" "<<0<<" "<<1<<endl;
 
- 		BbodyRectSubset[mask].read(BbodyPlaneSubSet[mask]);        
- 	}
+		//B
+		fix(x,0,box);fix(y,0,box);fix(z,box,2*box);
 
-	vector<db> is;
+		rep(ix,0,2) rep(iy,0,2) rep(iz,0,2)
+			cout<<x[ix]<<" "<<y[iy]<<" "<<z[iz]<<endl;
 
-	rep(mask,1,(1<<mB)){
-        auto points = get_points(BbodyPlaneSubSet[mask]);
-		calcInterestingTime(wavePlane,wavePoints,BbodyPlaneSubSet[mask],points,v,is);
+		cout<<0<<" "<<0<<" "<<-1<<endl;
+
+		return 0;
+	}
+	*/
+
+	//[0..box][0..box][0..box]
+	//[0..box][0..box][box+1..box]
+
+	cout<<mB<<endl;
+
+	int low[3];int up[3];
+
+	//B
+	rep(_,0,mB){
+		cout<<n<<endl;
+		rep(i,0,3) low[i] = 0, up[i] = box;
+		low[2] = box; up[2] = 2 * box;
+		VP B = gen_in_box(low,up,n);
+		for(auto i : B) cout<<int(i.x+0.1)<<" "<<int(i.y+0.1)<<" "<<int(i.z+0.1)<<endl;
 	}
 
-	is.pb(0);
-	sort(is.begin(), is.end());
-    int cnt = 1;
-    rep(i,1,is.size())
-        if(is[i] > is[cnt-1] + 1e-9)
-            is[cnt++] = is[i];
-    is.resize(cnt);
+	//A
+	rep(i,0,3) low[i] = 0, up[i] = box;
+	cout<<n<<endl;
+	VP A = gen_in_box(low,up,n);
+	for(auto i : A) cout<<int(i.x+0.1)<<" "<<int(i.y+0.1)<<" "<<int(i.z+0.1)<<endl;
+	cout<<small_rand(0,100)/500.0<<" "<<small_rand(0,100)/500.0<<" "<<1<<endl;
 
-
-    db ans = 0;
-
-    db pre = calc(is[0]);
-
-	rep(i,0,is.size() - 1){
-		db l = is[i], r = is[i + 1];
-
-        db cur = calc(r);
-        db mid = calc((l + r) / 2);
-
-        db tmp = (pre + cur + 4 * mid) / 6 * (r - l);
-
-        pre = cur;
-        ans += tmp;
-	}
-
-	printf("%0.10f\n",(double)ans);
 	return 0;
 }
