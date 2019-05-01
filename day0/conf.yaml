@@ -1,5 +1,5 @@
 folder: day
 name: day0
-subdir: [choice, guess]
+subdir: [choice, mentor, airport, guess]
 title: {zh-cn: 练习赛}
 version: 2
