@@ -10,11 +10,11 @@
 
 {{ self.input_file() }}
 
-第一行 $n,m$；
+第一行两个正整数 $n,m$；
 
 第二行一个长度为 $w$ 的串，串中的每个字符为 `&`、`|`、`^`  中的一个（分别代表与、或和异或），表示每一个 $\otimes_i$。
 
-接下来 $m$ 行，每一行 $x,y,v$，表示一条连接 $x$ 和 $y$ 权值为 $v$ 的边，保证 $0\le v < 2^w$。
+接下来 $m$ 行，每一行三个非负整数 $x,y,v$，表示一条连接 $x$ 和 $y$ 权值为 $v$ 的边，保证 $1\leq x,y\leq n$，$0\le v < 2^w$。
 
 保证 $n\le 70$，$w\le 12$。
 
@@ -27,8 +27,6 @@
 {{ s('sample', 1) }}
 
 {{ self.sample_text() }}
-
-{{ self.title_sample_description() }}
 
 {{ s('subtasks') }}
 
