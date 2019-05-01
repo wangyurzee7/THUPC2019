@@ -10,7 +10,8 @@ memory limit: 512 MB
 name: inequality
 partial score: false
 pre: []
-samples: []
+samples:
+- cases: [1]
 time limit: 1.0
 title: {zh-cn: 不等式}
 type: program
