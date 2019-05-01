@@ -44,7 +44,7 @@ private:
                 sum[col[j]]+=w[j];
             }
             int mx=0;
-            for (int j=0;j<n;++j)
+            for (int j=2;j<=n;++j)
                 mx=max(mx,sum[j]);
             ans=max(ans,mx/w[i]);
         }
