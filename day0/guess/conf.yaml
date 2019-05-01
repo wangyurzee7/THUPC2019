@@ -1,16 +1,18 @@
 args: {n: 1000}
 compile: {c: -O2 -std=c14, cpp: -O2 -std=c++14, java: '', pas: -O2, py: ''}
 data:
-- cases: [1]
+- cases: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 folder: problem
 memory limit: 512 MB
-name: improve
+name: guess
 partial score: false
 pre: []
 samples:
 - cases: [1]
 time limit: 1.0
-title: {zh-cn: 改善生活}
+title: {zh-cn: 猜猜看}
 type: program
-users: {}
+users:
+  wyz:
+    std.cpp: {expected: == 100, path: wyz/std.cpp}
 version: 2

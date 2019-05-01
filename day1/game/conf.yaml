@@ -8,7 +8,8 @@ memory limit: 512 MiB
 name: game
 partial score: false
 pre: []
-samples: []
+samples:
+- cases: [1]
 time limit: 1.0
 title: {zh-cn: 令人难以忘记的题目名称}
 type: program

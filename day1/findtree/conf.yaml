@@ -13,7 +13,8 @@ memory limit: 512 MiB
 name: findtree
 partial score: false
 pre: []
-samples: []
+samples:
+- cases: [1]
 time limit: 7.0
 title: {zh-cn: 找树}
 type: program

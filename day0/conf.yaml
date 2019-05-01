@@ -1,7 +1,5 @@
-end time: 1926-08-17 01:00:01+0800
 folder: day
 name: day0
-start time: 1926-08-17 01:00:00+0800
-subdir: [choice]
-title: {zh-cn: 试机}
+subdir: [choice, guess]
+title: {zh-cn: 练习赛}
 version: 2
