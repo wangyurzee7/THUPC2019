@@ -6,11 +6,12 @@
 #include <vector>
 
 // ./gen <type> <n> <m> [<n1> <m1> <n2> <m2>]
-// <type>: linear/majime
+// <type>: linear/majime/broom/maxans
 
 // Test runs:
 // for i in {1..100}; do ./a.out linear 10 20 Seed=$i | python3 ../wyz.validate/vali.py; done
 // for i in {1..100}; do ./a.out majime 30 40 15 20 5 10 Seed=$i | python3 ../wyz.validate/vali.py; done
+// for i in {1..100}; do ./a.out broom 30 40 Seed=$i | python3 ../wyz.validate/vali.py; done
 
 static const int MAXN = 2002;
 static const int MAXM = 60003;
@@ -32,7 +33,7 @@ struct edgeset {
 
     inline bool add_edge(int u, int v)
     {
-        if (this->es.count({u, v})) return false;
+        if (u == v || this->es.count({u, v})) return false;
         this->e[u].push_back(v);
         this->es.insert({u, v});
         indeg[v] += 1;
@@ -135,12 +136,46 @@ void gen_majimerand()
 
     // Add information
     for (int i = 0; i < n; ++i) {
-        c[i] = rnd.next(1, n - 1);
+        c[i] = rnd.wnext(1, n - 1, -3);
         w[i] = rnd.wnext(1, 100, +3);
     }
 
     // Mark originally no-in SCCs
-    for (int u : no_in) c[rand_one(scc_vs[u])] = 0;
+    for (int u : no_in) {
+        int v = rand_one(scc_vs[u]);
+        c[v] = 0;
+        w[v] = rnd.wnext(1, 100, -5);
+    }
+}
+
+void gen_broom()
+{
+    for (int i = 0; i < n / 2; ++i) es.add_edge(i, n / 2);
+    for (int i = n / 2; i < n - 1; ++i) es.add_edge(i, i + 1);
+    for (int i = n - 1; i < m; ++i) {
+        int u, v;
+        do {
+            u = rnd.next(n / 2, n - 1);
+            v = rnd.next(n / 2, n - 1);
+        } while (!es.add_edge(u, v));
+    }
+    for (int i = 0; i < n / 2; ++i) {
+        c[i] = 0;
+        w[i] = rnd.wnext(1, 100, -6);
+    }
+    for (int i = n / 2; i < m; ++i) {
+        c[i] = rnd.wnext(1, n - 1, -3);
+        w[i] = rnd.next(1, 100);
+    }
+}
+
+void gen_maxans()
+{
+    c[0] = 0;
+    for (int i = 1; i < n; ++i) c[i] = 1;
+    w[0] = 1;
+    for (int i = 1; i < n; ++i) w[i] = 100;
+    for (int i = 0; i < n - 1; ++i) es.add_edge(i, i + 1);
 }
 
 int main(int argc, char *argv[])
@@ -159,8 +194,13 @@ int main(int argc, char *argv[])
         gen_linear();
     else if (strcmp(argv[1], "majime") == 0)
         gen_majimerand();
+    else if (strcmp(argv[1], "broom") == 0)
+        gen_broom();
+    else if (strcmp(argv[1], "maxans") == 0)
+        gen_maxans();
     else { puts("> <"); return 1; }
 
+    m = es.es.size();
     printf("%d %d\n", n, m);
     for (int i = 0; i < n; ++i)
         printf("%d%c", c[i] + 1, i == n - 1 ? '\n' : ' ');
