@@ -1,0 +1,20 @@
+args: {n: 1000}
+compile: {c: -O2 -std=c11, cpp: -O2 -std=c++11, java: '', pas: -O2, py: ''}
+data:
+- cases: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+folder: problem
+memory limit: 512 MB
+name: mentor
+partial score: false
+pre: []
+samples:
+- cases: [1]
+time limit: 3.0
+title: {zh-cn: 皮配}
+type: program
+users:
+  ryz:
+    mentor.cpp: {expected: == 100, path: ryz/mentor.cpp}
+  wyz:
+    std.cpp: {expected: == 100, path: wyz/std.cpp}
+version: 2
