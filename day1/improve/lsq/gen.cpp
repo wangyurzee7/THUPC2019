@@ -5,7 +5,8 @@
 #include <utility>
 #include <vector>
 
-// ./gen <n> <m> [<n1> <m1> <n2> <m2>]
+// ./gen <type> <n> <m> [<n1> <m1> <n2> <m2>]
+// <type>: linear/majime
 
 // Test runs:
 // for i in {1..100}; do ./a.out linear 10 20 Seed=$i | python3 ../wyz.validate/vali.py; done
