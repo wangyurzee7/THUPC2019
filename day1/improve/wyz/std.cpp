@@ -25,6 +25,17 @@ private:
     int ans;
     int sum[N];
     void solve(){
+        for (int k=0;k<n;++k)
+            for (int i=0;i<n;++i)if (d[i][k]){
+                // optimized floyd
+                d[i]|=d[k];
+                /* 
+                // unoptimized floyd
+                for (int j=0;j<n;++j)
+                    if (d[k][j])
+                        d[i][j]=1;
+                 */
+            }
         ans=0;
         for (int i=0;i<n;++i) if (col[i]==1){
             memset(sum,0,sizeof(sum));
