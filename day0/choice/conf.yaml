@@ -1,18 +1,14 @@
-args: {a: 100000, n: 500000}
+args: {n: 1000}
 compile: {c: -O2 -std=c14, cpp: -O2 -std=c++14, java: '', pas: -O2, py: ''}
-data:
-- args: {n: 1000}
-  cases: [1, 2, 3, 4, 5]
-- args: {n: 500000}
-  cases: [6, 7, 8, 9, 10]
+data: []
 folder: problem
 memory limit: 512 MB
-name: inequality
+name: choice
 partial score: false
 pre: []
 samples: []
 time limit: 1.0
-title: {zh-cn: 不等式}
+title: {zh-cn: 不定项选择题}
 type: program
 users: {}
 version: 2

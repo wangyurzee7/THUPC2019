@@ -1,4 +1,5 @@
 folder: day
 name: day1
-subdir: [tree, problem, chess, divide, energywave, furniture, game, duckchess, inequality, improve, findtree, median, m]
+subdir: [tree, problem, chess, divide, energywave, furniture, game, duckchess, inequality,
+  improve, findtree, median, m]
 version: 2
