@@ -1,9 +1,9 @@
 {{ self.title() }}
 
-{{ _('Background') }}
+{{ s('Background') }}
 欢迎来到 2019 清华大学学生程序设计竞赛！
 
-{{ _('Description') }}
+{{ s('Description') }}
 请问，下列选项中，正确的有哪些？
 
 1. 清华大学学生程序设计竞赛的缩写为 `THUPC`
@@ -22,12 +22,12 @@
 
 8. 本次比赛中，将可能产生获得`张鸽鸽奖`的队伍
 
-{{ _('Input Format') }}
+{{ s('Input Format') }}
 {{ self.input_file() }}
 
 输入有一些东西，但没有用。
 
-{{ _('Output Format') }}
+{{ s('Output Format') }}
 {{ self.output_file() }}
 
 从小到大输出你认为正确的选项的编号，每行输出一个，选项与选项之间无额外空行。
