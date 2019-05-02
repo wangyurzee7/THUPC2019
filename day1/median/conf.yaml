@@ -12,5 +12,21 @@ samples:
 time limit: 1.0
 title: {zh-cn: 中位数问题}
 type: program
-users: {}
+users:
+  lsq:
+    sol-moreopt.cpp:
+      expected: []
+      path: lsq/sol-moreopt.cpp
+    sol-optimize.cpp:
+      expected: []
+      path: lsq/sol-optimize.cpp
+    sol-selfimp.cpp:
+      expected: []
+      path: lsq/sol-selfimp.cpp
+    sol-stdlist.cpp: {expected: == 100, path: lsq/sol-stdlist.cpp}
+  wyz:
+    log.cpp:
+      expected: []
+      path: wyz/log.cpp
+    std.cpp: {expected: == 100, path: wyz/std.cpp}
 version: 2
