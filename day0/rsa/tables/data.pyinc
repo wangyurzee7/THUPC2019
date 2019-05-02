@@ -1,0 +1,14 @@
+ret = [["测试点","$x$","$n$","$\\sum n^k$","完全二叉","$T$"]]	#注意右斜杠经常需要两次转义
+for datum in prob['data']:
+    args = datum['args']
+    row = [
+        ','.join(map(str, datum['cases'])),	#Python字符串可以用双引号也可以用单引号
+        "$= %s$" % tools.hn(args[0]),
+        r"$\le %s$" % tools.hn(args[1]),	#Python可以用不转义的Raw字符串解决右斜杠需要两次转义的问题
+        r"$\sum n^{%s} \le %s$" % (tools.hn(args[2]), tools.hn(args[5])),
+        "Yes" if args[3] != 0 else "No",
+        r"$\le %s$" % tools.hn(args[4])
+    ]
+    ret.append(row)
+base.log.debug(u'输出调试信息')
+return merge_ver(ret)
