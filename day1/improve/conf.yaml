@@ -2,6 +2,8 @@ args: {n: 1000}
 compile: {c: -O2 -std=c14, cpp: -O2 -std=c++14, java: '', pas: -O2, py: ''}
 data:
 - cases: [1]
+- cases: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
 folder: problem
 memory limit: 512 MB
 name: improve
@@ -12,5 +14,20 @@ samples:
 time limit: 1.0
 title: {zh-cn: 改善生活}
 type: program
-users: {}
+users:
+  lsq:
+    sol.cpp:
+      expected: []
+      path: lsq/sol.cpp
+    wa-1.cpp:
+      expected: []
+      path: lsq/wa-1.cpp
+    wa-2.cpp:
+      expected: []
+      path: lsq/wa-2.cpp
+    wa-flow.cpp:
+      expected: []
+      path: lsq/wa-flow.cpp
+  wyz:
+    std.cpp: {expected: == 100, path: wyz/std.cpp}
 version: 2
