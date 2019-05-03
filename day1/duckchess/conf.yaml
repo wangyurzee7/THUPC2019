@@ -12,5 +12,7 @@ samples:
 time limit: 1.0
 title: {zh-cn: 鸭棋}
 type: program
-users: {}
+users:
+  exfjoe:
+    std: {expected: == 100, path: exfjoe/duckchess.cpp}
 version: 2
