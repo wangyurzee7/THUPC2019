@@ -32,7 +32,7 @@ Kiana喜欢玩象棋，尤其是喜欢用象棋玩过河卒的游戏。在传统
 
 接下来$K$行，第$i$行包含两个正整数$X_i$和$Y_i$，表示对方马的第$i$个攻击坐标为$(X_i,Y_i)$。
 
-对于所有数据，保证$1\leq N\leq 10^9, 1\leq M\leq 10^5, 0\leq K\leq 20, 1\leq X_i\leq N, 1\leq Y_i\leq M$，且$(1,1)$一定不会被对方马攻击。
+对于所有数据，保证$1\leq N\leq 10^9, 1\leq M\leq 10^5, 0\leq K\leq 20, 1\leq X_i\leq N, 1\leq Y_i\leq M$，$(1,1)$一定不会被对方马攻击，且被攻击的格子中不存在两个坐标相同的格子。
 
 ## {{ _('Output Format') }}
 
