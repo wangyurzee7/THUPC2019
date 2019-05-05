@@ -15,5 +15,9 @@ samples:
 time limit: 1.0
 title: {zh-cn: 不等式}
 type: program
-users: {}
+users:
+  function2:
+    std:
+      path: function2/std.cpp
+      expected: ['== 100']
 version: 2
