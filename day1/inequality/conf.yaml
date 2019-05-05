@@ -20,4 +20,8 @@ users:
     std:
       path: function2/std.cpp
       expected: ['== 100']
+  eatenbagpipe:
+    100:
+      path: eatenbagpipe/100.cpp
+      expected: ['== 100']
 version: 2
