@@ -16,6 +16,6 @@ type: program
 users:
   function2:
     main.cpp:
-      expected: []
+      expected: ['==100']
       path: function2/main.cpp
 version: 2
