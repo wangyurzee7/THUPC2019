@@ -46,6 +46,6 @@ Kiana喜欢玩象棋，尤其是喜欢用象棋玩过河卒的游戏。在传统
 
 {{ self.title_sample_description() }}
 
-用'↑'表示过河卒向上移动了一格，用'→'表示过河卒向右移动了一格，用'↗'表示过河卒向右上移动了一格，由此可以简化样例解释的表述。
+用$\uparrow$表示过河卒向上移动了一格，用$\rightarrow$表示过河卒向右移动了一格，用$\nearrow$表示过河卒向右上移动了一格，由此可以简化样例解释的表述。
 
-$24$种移动方案如下：(↑↑↑)、(↑↑↗)、(↑↑→↑)、(↑↑→↗)、(↑↑→→↑)、(↑↑→→↗)、(↑↑→→→)、(↑↗↑)、(↑↗↗)、(↑↗→↑)、(↑↗→↗)、(↑↗→→)、(→→→)、(→→↗)、(→→↑→)、(→→↑↗)、(→→↑↑→)、(→→↑↑↗)、(→→↑↑↑)、(→↗→)、(→↗↗)、(→↗↑→)、(→↗↑↗)、(→↗↑↑)。
+$24$种移动方案如下：$(\uparrow\uparrow\uparrow)$、$(\uparrow\uparrow\nearrow)$、$(\uparrow\uparrow\rightarrow\uparrow)$、$(\uparrow\uparrow\rightarrow\nearrow)$、$(\uparrow\uparrow\rightarrow\rightarrow\uparrow)$、$(\uparrow\uparrow\rightarrow\rightarrow\nearrow)$、$(\uparrow\uparrow\rightarrow\rightarrow\rightarrow)$、$(\uparrow\nearrow\uparrow)$、$(\uparrow\nearrow\nearrow)$、$(\uparrow\nearrow\rightarrow\uparrow)$、$(\uparrow\nearrow\rightarrow\nearrow)$、$(\uparrow\nearrow\rightarrow\rightarrow)$、$(\rightarrow\rightarrow\rightarrow)$、$(\rightarrow\rightarrow\nearrow)$、$(\rightarrow\rightarrow\uparrow\rightarrow)$、$(\rightarrow\rightarrow\uparrow\nearrow)$、$(\rightarrow\rightarrow\uparrow\uparrow\rightarrow)$、$(\rightarrow\rightarrow\uparrow\uparrow\nearrow)$、$(\rightarrow\rightarrow\uparrow\uparrow\uparrow)$、$(\rightarrow\nearrow\rightarrow)$、$(\rightarrow\nearrow\nearrow)$、$(\rightarrow\nearrow\uparrow\rightarrow)$、$(\rightarrow\nearrow\uparrow\nearrow)$、$(\rightarrow\nearrow\uparrow\uparrow)$。
