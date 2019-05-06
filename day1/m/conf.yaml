@@ -15,7 +15,7 @@ pre: []
 samples:
 - cases: [1]
 time limit: 1.0
-title: {zh-cn: 那年今日}
+title: {zh-cn: 历史行程}
 type: program
 users: {}
 version: 2
