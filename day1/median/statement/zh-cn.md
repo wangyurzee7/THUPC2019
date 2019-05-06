@@ -6,7 +6,7 @@ Yazid 和 Tiffany 喜欢中位数。对于一个长度为 $n$ 的序列 $A_1,A_2
 
 Tiffany 有 $m$ 个序列，其中长度为 $n_i$ 的第 $i$ 个（$1\leq i\leq m$）序列为 $A_{i,1},A_{i,2},\dots A_{i,n_i}$。
 
-记 $f\left( u,v\right)$ 表示第 $u$ 个序列和第 $v$ 个序列合并得到的（长度为 $n_u +n_v$ 的）序列的中位数。Yazid 想求出所有 $f\left( u,v\right)$，但为了节省你的输出时间，你只需要对所有 $1\leq u\leq m$ 求出：
+记 $f\left( u,v\right)$ 表示第 $u$ 个序列和第 $v$ 个序列合并得到的序列（即由两个序列的共 $n_u +n_v$ 个元素组成的新序列）的中位数。Yazid 想求出所有 $f\left( u,v\right)$，但为了节省你的输出时间，你只需要对所有 $1\leq u\leq m$ 求出：
 
 * $R\left(u\right)=\mathop{\mathrm{xor}}\limits_{v=1}^{n} {\left(f\left(u,v\right)+u+v\right)}$（$\mathrm{xor}$ 指异或运算，在 C++ 语言中对应 `^` 运算符）。
 
