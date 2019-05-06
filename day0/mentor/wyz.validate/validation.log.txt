@@ -1,0 +1,11 @@
+make: 'validate' is up to date.
+Validating data #1 ( file ../data/1.in ) ...  OK~
+Validating data #2 ( file ../data/2.in ) ...  OK~
+Validating data #3 ( file ../data/3.in ) ...  OK~
+Validating data #4 ( file ../data/4.in ) ...  OK~
+Validating data #5 ( file ../data/5.in ) ...  OK~
+Validating data #6 ( file ../data/6.in ) ...  OK~
+Validating data #7 ( file ../data/7.in ) ...  OK~
+Validating data #8 ( file ../data/8.in ) ...  OK~
+Validating data #9 ( file ../data/9.in ) ...  OK~
+Validating data #10 ( file ../data/10.in ) ...  OK~

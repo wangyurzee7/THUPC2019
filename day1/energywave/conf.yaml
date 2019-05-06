@@ -1,13 +1,15 @@
-args: {n: 1000}
+args: {n: 8}
 compile: {c: -O2 -std=c14, cpp: -O2 -std=c++14, java: '', pas: -O2, py: ''}
-data: []
+data:
+- cases: [1, 2, 3, 4, 5, 6, 7, 8]
 folder: problem
-memory limit: 32 MB
+memory limit: 1024 MB
 name: energywave
 partial score: false
 pre: []
-samples: []
-time limit: 2.0
+samples:
+- cases: [1]
+time limit: 5.0
 title: {zh-cn: 能量波}
 type: program
 users: {}

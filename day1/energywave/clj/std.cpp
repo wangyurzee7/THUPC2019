@@ -11,8 +11,8 @@ typedef long double db;
 const db EPS = 1e-9;
 
 const db pi = acos(-1.0);
-  
-inline int sign(db a) { return a < -EPS ? -1 : a > EPS; }
+
+inline int sign(db a,db eps = EPS) { return a < -eps ? -1 : a > eps; }
   
 inline int cmp(db a, db b){ return sign(a-b); }
   
@@ -64,6 +64,8 @@ struct L{ //ps[0] -> ps[1]
   
 #define cross(p1,p2,p3) ((p2.x-p1.x)*(p3.y-p1.y)-(p3.x-p1.x)*(p2.y-p1.y))
 #define crossOp(p1,p2,p3) sign(cross(p1,p2,p3))
+
+#define crossOp2(p1,p2,p3) sign(cross(p1,p2,p3),1e-9)
   
 bool chkLL(P p1, P p2, P q1, P q2) {
     db a1 = cross(q1, q2, p1), a2 = -cross(q1, q2, p2);
@@ -84,8 +86,8 @@ bool intersect(db l1,db r1,db l2,db r2){
   
 bool isSS(P p1, P p2, P q1, P q2){
     return intersect(p1.x,p2.x,q1.x,q2.x) && intersect(p1.y,p2.y,q1.y,q2.y) && 
-    crossOp(p1,p2,q1) * crossOp(p1,p2,q2) <= 0 && crossOp(q1,q2,p1)
-            * crossOp(q1,q2,p2) <= 0;
+    crossOp2(p1,p2,q1) * crossOp2(p1,p2,q2) <= 0 && crossOp2(q1,q2,p1)
+            * crossOp2(q1,q2,p2) <= 0;
 }
   
 bool isSS_strict(P p1, P p2, P q1, P q2){
@@ -161,7 +163,8 @@ int contain(vector<P> ps, P p){ //2:inside,1:on_seg,0:outside
 }
   
 vector<P> convexHull(vector<P> ps) {
-    int n = ps.size(); if(n <= 1) return ps;
+    int n = ps.size(); //assert(n >= 3);
+    if(n <= 1) return ps;
     sort(ps.begin(), ps.end());
     vector<P> qs(n * 2); int k = 0;
     for (int i = 0; i < n; qs[k++] = ps[i++]) 
@@ -178,7 +181,7 @@ struct P3{
     db x,y,z;
     P3 operator+(P3 o){ return {x+o.x,y+o.y,z+o.z}; }
     P3 operator-(P3 o){ return {x-o.x,y-o.y,z-o.z}; }
-    P3 operator-(){ return {-x,-y,-z}; }
+    P3 operator-() const{ return {-x,-y,-z}; }
 
     db operator*(P3 o){ return x*o.x+y*o.y+z*o.z; }
     P3 operator^(P3 o){ return {y*o.z-z*o.y,z*o.x-x*o.z,x*o.y-y*o.x}; }
@@ -201,7 +204,7 @@ struct P3{
         cin>>x>>y>>z;
     }
     void print(){
-        //printf("%lf,%lf,%lf\n",x,y,z);
+        cout<<x<<","<<y<<","<<z<<endl;
     }
 };
 
@@ -213,6 +216,7 @@ struct Rect{
 
     void read(VVP&A){
         rep(i,0,3) low[i] = 1e100, up[i] = -1e100;
+
         for(auto f:A) for(auto p:f){
             db cur[] = {p.x,p.y,p.z};
             rep(i,0,3) low[i] = min(low[i],cur[i]), up[i] = max(up[i],cur[i]);
@@ -365,7 +369,7 @@ namespace CH3{
 }
 
 VP convexHull2D(VP ps,P3 o){
-    P3 x = {rand(),rand(),rand()}; x = x.norm();
+    P3 x = {12745,78721,-87814}; x = x.norm();
 
     x = (x ^ o).norm(); P3 y = (x ^ o).norm();
 
@@ -384,11 +388,12 @@ VVP unite_tri(VVP pss){
         P3 o = ((ps[1] - ps[0]) ^ (ps[2] - ps[0])).norm();
         for(auto i : ps) by_norm[o].pb(i);
     }
-    for(auto it:by_norm) ret.pb(convexHull2D(it.se,it.fi));
+    for(auto it:by_norm) ret.pb(convexHull2D(it.se,-it.fi));
     return ret;
 }
 
 pair<P3,P3> get_face(VP ps){
+    assert(ps.size() >= 3);
     return mp(ps[0],((ps[1]-ps[0])^(ps[2]-ps[0])).norm());
 }
 
@@ -396,6 +401,7 @@ VVP convexCut(VVP pss, P3 p, P3 o){ // keep o*(x-p) >= 0
     VVP ret; VP sec;
     for(auto ps : pss){
         int n = ps.size();
+        //cerr<<n<<endl;
         VP qs; bool dif = 0;
         rep(i,0,n){
             int d1 = sign(o*(ps[i]-p));
@@ -408,11 +414,14 @@ VVP convexCut(VVP pss, P3 p, P3 o){ // keep o*(x-p) >= 0
             }
             if(d1 == 0) sec.pb(ps[i]);
             else dif = 1;
-            dif |= o * ((ps[(i+1)%n] - ps[i]) ^ (ps[(i+2)%n]-ps[i])) < -EPS;
+            dif |= o * ((ps[(i+1)%n] - ps[i]) ^ (ps[(i+2)%n]-ps[i])).norm() < -EPS;
         }
-        if(qs.size() > 0 && dif) ret.pb(qs);
+        if(qs.size() >= 3 && dif) ret.pb(qs);
     }
-    if(sec.size() > 0) ret.pb(convexHull2D(sec,o));
+    if(sec.size() > 0) {
+        sec = convexHull2D(sec,o);
+        if(sec.size() >= 3) ret.pb(sec);
+    }
 
     if(ret.size() < 4) ret = {};
 
@@ -461,6 +470,7 @@ VVP intersectTwoConvexHull(VVP hA, VVP hB){
 	for(VP f : hB){
 		auto w = get_face(f);
 		hA = convexCut(hA,w.fi,-w.se);
+        if(hA.empty()) break;
 	}
 	return hA;
 }
@@ -506,7 +516,7 @@ vector<db> calcIntersectPointAndPlane(P3 p1,P3 q1,P3 qo,P3 v){
 }
 
 //assume A is moving
-db calc(db t){
+db calc(db t, bool out = 0){
 	//for(auto&i : curWavePoints) i = i + v * t;
 
 	VVP curWavePlane = wavePlane;
@@ -517,124 +527,67 @@ db calc(db t){
 	db ans = 0;
 	rep(mask,1,1<<mB) if(!BbodyPlaneSubSet[mask].empty()){
 		int sign = -1; rep(j,0,mB) if(mask>>j&1) sign *= -1;
-
 		if(intersect(R,BbodyRectSubset[mask]).vol() <= EPS) continue;
-
-		ans += sign * vol(intersectTwoConvexHull(curWavePlane,BbodyPlaneSubSet[mask]));
+        db sign_tmp = sign * vol(intersectTwoConvexHull(curWavePlane,BbodyPlaneSubSet[mask]));
+		ans += sign_tmp;
 	}
 
 	return ans;
 }
 
-typedef vector<db> Poly;
-
-Poly operator*(Poly a,Poly b){
-    Poly ret(a.size() + b.size() - 1, 0);
-    rep(i,0,a.size()) rep(j,0,b.size())
-        ret[i+j] += a[i] * b[j];
-    return ret;
-}
-
-Poly operator+(Poly a,Poly b){
-    if(a.size() < b.size()) swap(a,b);
-    rep(i,0,b.size()) a[i] += b[i];
-    return a;
-}
-
-Poly mul(Poly a, db x){
-    for(auto&i : a) i *= x; return a;
-}
-
-Poly div(Poly a,db x){
-    for(auto&i : a) i /= x; return a;
-}
-
-Poly D(Poly a){
-    Poly ret(a.size() - 1, 0);
-    rep(i,1,a.size()) ret[i-1] += a[i] * i;
-    return ret;
-}
-
-db eval(Poly a, db x){
-    db ret = 0;
-    for(int i = a.size() - 1; i >= 0; --i)
-        ret =  ret * x + a[i];
-    return ret;
-}
-
-Poly integral(Poly a){
-	Poly ret(a.size() + 1, 0);
-	rep(i,0,a.size())
-		ret[i+1] += a[i] / (i + 1);
-	return ret;
-}
-
-vector<db> solve_two(db a,db b,db c){
-    //ax^2+bx+c == 0
-    if(sign(a) == 0){
-        if(sign(b)) return {-c/b};
-        else return {};
-    } else {
-        db del = b*b - 4 * a * c;
-        if(sign(del) < 0) return {};
-        del = max(del, (db)0);
-        return {(-b-sqrt(del))/(2*a),(-b+sqrt(del))/(2*a)};
-    }
-}
-
-db calc_integral(Poly a,db l,db r){
-	Poly I = integral(a);
-	return eval(I,r) - eval(I,l);
-}
-
 db solve(db l,db r){
-
-    //four points
-    db x[4], y[4];
-    rep(i,0,4) {
-        x[i] = l + (r-l)/3 * i; 
-        y[i] = calc(x[i]);
-        //cout<<y[i]<<endl;
-    }
-
-    Poly ret = {};
-
-    rep(i,0,4){
-        Poly tmp = {1};
-        rep(j,0,4) if(i!=j){
-            tmp = tmp * (Poly){-x[j],1};
-            tmp = div(tmp,(x[i] - x[j]));
-        }
-        ret = ret + mul(tmp,y[i]);
-    }
-
-    //cout<<"-------------"<<endl;
-    //for(auto i : ret) cout<<i<<" ";cout<<endl;
-
-    //rep(i,0,4) {
-        //cout<<y[i]<<" "<<eval(ret,x[i])<<endl;
-        //assert(sign(y[i] - eval(ret,x[i])) == 0);
-    //}
-
-    return calc_integral(ret,l,r);
+    return (calc(l) + 4 * calc((l + r) / 2) + calc(r))/ 6 * (r - l);
 }
 
 void readConvexBody(VVP&plane,VP&points){
 	int n; cin>>n;
 	points = readVP(n);
 	plane = CH3::convexHull3d(points);
+    plane = unite_tri(plane);
+}
+
+bool onSide(P3 p,VP ps){
+    //is p on the side of ps?
+    int n = ps.size();
+
+    db area = 0;
+    rep(i,1,n-1) area += ((ps[i] - ps[0])^(ps[i+1] - ps[0])).abs();
+
+    db test_area = 0;
+    rep(i,0,n) test_area += ((ps[i] - p)^(ps[(i+1)%n] - p)).abs();
+
+    return test_area <= area * 1.01;
+}
+
+bool isSS_P3(P3 p1,P3 p2,P3 q1,P3 q2){
+    //is p1,p2,q1,q2 intersect?
+
+    P3 o = get_face({p1,p2,q1}).second;
+
+    P3 x = {1278,8787,-1578}; x = x.norm();
+
+    x = (x ^ o).norm(); P3 y = (x ^ o).norm();
+
+    return isSS({p1*x,p1*y},{p2*x,p2*y},{q1*x,q1*y},{q2*x,q2*y});
 }
 
 void calcInterestingTime(VVP&AP,VP&A,VVP&BP,VP&B,P3 v,vector<db>& is){
 	//find all interesting time
 
 	//point in A, plane in B
+
 	for(auto pA : A)
 		for(auto fB : BP){
 			auto tmp = get_face(fB);
-			for(auto x : calcIntersectPointAndPlane(pA,tmp.fi,tmp.se,v))
-				if(x > 0)
-					is.pb(x);
+			for(auto x : calcIntersectPointAndPlane(pA,tmp.fi,tmp.se,v)){
+				if(x > 0){
+                    auto cur = pA + v * x;
+                    //is cur on fB?
+                    if(onSide(cur,fB)){
+					   is.pb(x);
+                    }
+                }
+            }
 		}
 		
 	//line in A, line in B
@@ -643,8 +596,9 @@ void calcInterestingTime(VVP&AP,VP&A,VVP&BP,VP&B,P3 v,vector<db>& is){
 			rep(i,0,fA.size())
 				rep(j,0,fB.size())
 					for(auto x : calcIntersectTwoLines(fA[i],fA[(i+1)%fA.size()],fB[j],fB[(j+1)%fB.size()],v))
-						if(x > 0)
+						if(x > 0 && isSS_P3(fA[i] + v * x, fA[(i+1)%fA.size()] + v * x,fB[j],fB[(j+1)%fB.size()])){
 							is.pb(x);
+                        }
 		}
 
 	//plane in A, point in B
@@ -652,13 +606,24 @@ void calcInterestingTime(VVP&AP,VP&A,VVP&BP,VP&B,P3 v,vector<db>& is){
 		for(auto fA : AP){
 			auto tmp = get_face(fA);
 			for(auto x :calcIntersectPointAndPlane(pB,tmp.fi,tmp.se,-v))
-				if(x > 0)
-					is.pb(x);
+				if(x > 0){
+                    auto cur = pB - v * x;
+                    //is cur on fA?
+                    if(onSide(cur,fA)){
+					   is.pb(x);
+                    }
+                }
 		}
 }
 
+VP get_points(VVP pps){
+    VP ret;
+    for(auto f:pps) for(auto p :f)
+        ret.pb(p);
+    return ret;
+}
+
 int main() {
-//	freopen("in","r",stdin);
 
 	cin>>mB;
 
@@ -676,47 +641,41 @@ int main() {
  		if(mask != (1<<one)) BbodyPlaneSubSet[mask] = intersectTwoConvexHull(BbodyPlaneSubSet[mask - (1<<one)],BbodyPlane[one]);
  		else BbodyPlaneSubSet[mask] = BbodyPlane[one];
 
- 		BbodyRectSubset[mask].read(BbodyPlaneSubSet[mask]);
+ 		BbodyRectSubset[mask].read(BbodyPlaneSubSet[mask]);        
  	}
 
 	vector<db> is;
 
-	rep(i,0,mB){
-		calcInterestingTime(wavePlane,wavePoints,BbodyPlane[i],BbodyPoints[i],v,is);
+	rep(mask,1,(1<<mB)){
+        auto points = get_points(BbodyPlaneSubSet[mask]);
+		calcInterestingTime(wavePlane,wavePoints,BbodyPlaneSubSet[mask],points,v,is);
 	}
 
 	is.pb(0);
 	sort(is.begin(), is.end());
     int cnt = 1;
     rep(i,1,is.size())
-        if(is[i] > is[cnt-1] + EPS)
+        if(is[i] > is[cnt-1] + 1e-9)
             is[cnt++] = is[i];
     is.resize(cnt);
 
-//    cout<<cnt<<endl;
 
-/*
-    printf("is:\n");
-    for(auto x : is)
-    	printf("%0.5f\n",(double)x);
-*/
     db ans = 0;
+
+    db pre = calc(is[0]);
 
 	rep(i,0,is.size() - 1){
 		db l = is[i], r = is[i + 1];
-        ans += solve(l,r);
-	}
 
+        db cur = calc(r);
+        db mid = calc((l + r) / 2);
+
+        db tmp = (pre + cur + 4 * mid) / 6 * (r - l);
+
+        pre = cur;
+        ans += tmp;
+	}
 
 	printf("%0.10f\n",(double)ans);
-
-/*
-	printf("DEBUG\n");
-	db l = is[0], r = is.back();
-	rep(i,0,100){
-		db x = (l*(100-i) + r * i)/100;
-		printf("%0.5f : %0.5f\n",(double)x,(double)calc(x));
-	}
-*/
 	return 0;
 }

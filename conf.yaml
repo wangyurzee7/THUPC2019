@@ -1,7 +1,6 @@
 folder: contest
 name: name_for_programers
-short title: {zh-cn: 正式的简称}
-subdir: [day1]
-subtitle: {zh-cn: 子标题如冬令营}
-title: {zh-cn: 正式的中文名称}
+subdir: [day1, day0]
+subtitle: {zh-cn: 学生程序设计竞赛暨高校邀请赛}
+title: {zh-cn: “Citadel 杯”2019 清华大学}
 version: 2

@@ -137,6 +137,8 @@ db calc_integral(Poly a,db l,db r){
     return eval(I,r) - eval(I,l);
 }
 
+db TOTAL_ERROR = 0;
+
 db solve(db l,db r){
     //four points
     db x[4], y[4];
@@ -154,6 +156,13 @@ db solve(db l,db r){
     }
 
     rep(i,0,4) assert(sign(y[i] - eval(ret,x[i])) == 0);
+
+    db test_x = l + (r - l) * 0.17;
+
+    printf("%0.10f %0.10f\n",(double)calc_intersect(test_x),(double)eval(ret,test_x));
+    printf("%0.10f\n",(double)abs(calc_intersect(test_x) - eval(ret,test_x)));
+
+    TOTAL_ERROR += abs(calc_intersect(test_x) - eval(ret,test_x));
 
     return calc_integral(ret,l,r);
 }
@@ -196,9 +205,18 @@ int main() {
             is[cnt++] = is[i];
     is.resize(cnt);
 
+//    cout<<cnt<<endl;
+
     rep(i,0,is.size() - 1)
         ans += solve(is[i],is[i+1]);
 
     printf("%0.10lf\n",(double) ans);
+    printf("%0.10lf\n",(double) TOTAL_ERROR);
+    fprintf(stderr, "%0.10lf\n",(double) ans);
+    fprintf(stderr, "%0.10lf\n",(double) TOTAL_ERROR);
+
+    rep(i,0,30){
+        printf("%d: %0.10lf\n", i, (double) calc_intersect(1.0*i));
+    }
     return 0;
 }
