@@ -76,6 +76,7 @@ void gen(int m,int n,int type){
 		int n0=n-rand()%flag;
 		printf("%d",n0);
 		for (int j=1;j<=n0;++j){
+            if (a[i][j]==inf) --a[i][j];
 			printf(" %d",a[i][j]);
 		}
 		puts("");

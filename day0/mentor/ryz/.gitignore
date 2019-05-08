@@ -1,0 +1,7 @@
+*.in
+*.out
+*.ans
+mentor
+mentor1
+*.exe
+makefile

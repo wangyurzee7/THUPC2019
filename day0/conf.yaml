@@ -1,0 +1,5 @@
+folder: day
+name: day0
+subdir: [choice, mentor, airport, rsa, guess]
+title: {zh-cn: 练习赛}
+version: 2

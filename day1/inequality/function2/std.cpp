@@ -107,12 +107,8 @@ int main()
         }
     }
 
-    sort(b, b + tot, [](pii a, pii b) {
-        return a < b;
-    });
-    tot = unique(b, b + tot, [] (pii a, pii b) {
-        return a == b;
-    }) - b;
+    sort(b, b + tot, [](pii a, pii b) { return a < b; });
+    tot = unique(b, b + tot, [] (pii a, pii b) { return a == b; }) - b;
 
     bit_a.init(tot);
     bit_b.init(tot);

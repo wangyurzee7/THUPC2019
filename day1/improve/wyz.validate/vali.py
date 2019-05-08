@@ -45,6 +45,7 @@ if __name__=="__main__":
                 if c[v]==1:
                     err("Node {} has a path to Node {} which is invalid.".format(i+1,v+1))
                 q.append(v)
+                vis[v]=True
                 qt+=1
     try:
         buf=input()

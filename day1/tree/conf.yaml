@@ -8,13 +8,13 @@ folder: problem
 memory limit: 512 MB
 name: tree
 partial score: false
-pre: []
 samples:
 - cases: [1]
-time limit: 4.0
+time limit: 5.0
 title: {zh-cn: 不用找的树}
 type: program
 users:
   ccz:
     biaocheng: {expected: ==100, path: ccz/std.cpp}
+    biaocheng2: {expected: ==100, path: ccz/std_n.cpp}
 version: 2

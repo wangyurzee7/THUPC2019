@@ -1,0 +1,70 @@
+{
+  "args": {
+    "T": 8,
+    "ab": 30,
+    "n": 200,
+    "p": [
+      0,
+      1
+    ],
+    "st": 1000000000,
+    "x": 100000
+  },
+  "compile": {
+    "c": "-O2 -lm",
+    "cpp": "-O2 -lm",
+    "pas": "-O2"
+  },
+  "data": [
+    {
+      "cases": [
+        "airport1",
+        "airport2",
+        "airport3",
+        "airport4",
+        "airport5",
+        "airport6",
+        "airport7",
+        "airport8",
+        "airport9",
+        "airport10",
+        "airport11",
+        "airport12",
+        "airport13",
+        "airport14",
+        "airport15",
+        "airport16",
+        "airport17",
+        "airport18",
+        "airport19",
+        "airport20"
+      ]
+    }
+  ],
+  "folder": "problem",
+  "memory limit": "512 MB",
+  "name": "airport",
+  "packed": true,
+  "partial score": false,
+  "samples": [
+    {
+      "cases": [
+        1
+      ]
+    }
+  ],
+  "time limit": 1,
+  "title": {
+    "zh-cn": "\u673a\u573a"
+  },
+  "type": "program",
+  "users": {
+    "cy": {
+      "std/airport.cpp": "cy/std/airport.cpp"
+    },
+    "liuminghua": {
+      "airport.cpp": "liuminghua//airport.cpp"
+    }
+  },
+  "version": 0
+}

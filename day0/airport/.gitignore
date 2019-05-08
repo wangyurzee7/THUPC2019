@@ -1,0 +1,5 @@
+*.exe
+cy/*.in
+cy/*.out
+gen/*.in
+gen/*.out
