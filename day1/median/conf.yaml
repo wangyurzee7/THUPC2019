@@ -4,13 +4,13 @@ data:
 - cases: [1, 2, 3, 4, 5, 6, 7, 8]
 folder: problem
 memory limit: 512 MB
-name: median
+name: large
 partial score: false
 pre: []
 samples:
 - cases: [1]
 time limit: 1.0
-title: {zh-cn: 中位数问题}
+title: {zh-cn: 大碗宽面}
 type: program
 users:
   lsq:
