@@ -16,7 +16,7 @@
 
 接下来 $m$ 行，每一行三个非负整数 $x,y,v$，表示一条连接 $x$ 和 $y$ 权值为 $v$ 的边，保证 $1\leq x,y\leq n$，$0\le v < 2^w$。
 
-保证 $n\le 70$，$w\le 12$。
+保证 $n\le 70$，$w\le 12$，$m\le 5000$。
 
 {{ s('output format') }}
 
@@ -27,7 +27,3 @@
 {{ s('sample', 1) }}
 
 {{ self.sample_text() }}
-
-{{ s('subtasks') }}
-
-$n\le 70$，$w\le 12$，$m\le 5000$。
