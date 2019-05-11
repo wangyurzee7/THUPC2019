@@ -6,7 +6,8 @@ namespace __main__ {
 	const int MAX_N = 80;
 	const int MAX_W = 12;
 	const int MAX_V = 1 << MAX_W;
-	const int mod = 998244353;
+	const int mod = 64123;
+	using ll = unsigned;
 
 	int N, M, W;
 	char opr[MAX_W + 1];
@@ -44,13 +45,13 @@ namespace __main__ {
 		if(d) {
 			int x = 1;
 			for(int i = 0; i < W; ++i) if(opr[i] == '^') 
-				x = (long long) x * ((mod + 1) >> 1) % mod;
+				x = (ll) x * ((mod + 1) >> 1) % mod;
 			if(x != 1) for(register int s = 0; s < V; ++s)
-				f[s] = (long long) f[s] * x % mod;
+				f[s] = (ll) f[s] * x % mod;
 		}
 	}
 
-	int inv(int x) {return x == 1 ? 1 : mod - (long long) (mod / x) * inv(mod % x) % mod;}
+	int inv(int x) {return x == 1 ? 1 : mod - (ll) (mod / x) * inv(mod % x) % mod;}
 
 	int calc() {
 		int ans = 1;
@@ -62,11 +63,11 @@ namespace __main__ {
 				for(int k = i; k < N; ++k) swap(f[i][k], f[j][k]);
 				ans = sub(0, ans);
 			}
-			ans = (long long) ans * f[i][i] % mod;
+			ans = (ll) ans * f[i][i] % mod;
 			int t = inv(f[i][i]);
 			for(int j = i + 1; j < N; ++j) if(f[j][i]) {
-				int x = (long long) f[j][i] * t % mod;
-				for(int k = i; k < N; ++k) Sub(f[j][k], (long long) f[i][k] * x % mod);
+				int x = (ll) f[j][i] * t % mod;
+				for(int k = i; k < N; ++k) Sub(f[j][k], (ll) f[i][k] * x % mod);
 			}
 		}
 		return ans;
