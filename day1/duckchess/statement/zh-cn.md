@@ -17,17 +17,17 @@
 棋子分为 $7$ 类，下面介绍了它们的名字以及它们的移动规则。介绍移动规则时，我们默认棋子所处位置为 $\left( x,y\right)$（表示第 $x$ 行的第 $y$ 列，下同），并列出它可以到达的位置：
 
 * **王**（`captain`)：可达的位置共 $4$ 个，包括 $\left(x\pm 1,y\right)$ 及 $\left(x,y\pm 1\right)$。
-* **士**（`guard`）：可达的位置共 $4$ 个，包括 $\left(x\pm 1,y\pm 1\right)$。
-* **象**（`elephant`）：可达的位置至多 $4$ 个，对于 $s_x,s_y=\pm 1$，分别有：
+* **士**（`guard`）：可达的位置共 $4$ 个，包括 $\left(x\pm 1,y\pm 1\right)$ 及 $\left(x\pm 1,y\mp 1\right)$。
+* **象**（`elephant`）：可达的位置至多 $4$ 个，对于任意 $s_x,s_y\in \left\{ 1,-1\right\}$，分别有：
     * 如果位置 $\left(x+s_x\times 1 ,y+ s_y\times 1\right)​$ 上**无任意一方**的棋子停留，则 $\left( x+s_x \times 2,y+s_y \times 2\right)​$ 为一个可达的位置。
-* **马**（`horse`）：可达的位置至多 $8$ 个，对于 $s_x,s_y=\pm 1$，分别有：
+* **马**（`horse`）：可达的位置至多 $8$ 个，对于任意 $s_x,s_y\in \left\{ 1,-1\right\}$，分别有：
     * 如果位置 $\left(x+s_x\times 1 ,y\right)​$ 上**无任意一方**的棋子停留，则 $\left( x+s_x \times 2,y+s_y \times 1\right)​$ 为一个可达的位置。
     * 如果位置 $\left(x ,y+ s_y \times 1 \right)​$ 上**无任意一方**的棋子停留，则 $\left( x+s_x \times 1,y+s_y \times 2\right)​$ 为一个可达的位置。
 * **车**（`car`）：可在**不跨越其他棋子**的前提下，到达同行或同列的所有其他位置。
-* **鸭**（`duck`）：可达的位置至多 $8$ 个，对于 $s_x,s_y=\pm 1$ 分别有：
+* **鸭**（`duck`）：可达的位置至多 $8$ 个，对于任意 $s_x,s_y\in \left\{ 1,-1\right\}$，分别有：
     * 如果位置 $\left(x+s_x\times 2 ,y+s_y \times 1\right),\left(x+s_x\times 1 ,y\right)$ 上均**无任意一方**的棋子停留，则 $\left( x+s_x \times 3,y+s_y \times 2\right)$ 为一个可达的位置。
     * 如果位置 $\left(x+s_x \times 1 ,y+ s_y \times 2 \right),\left(x ,y+ s_y \times 1 \right)$ 上均**无任意一方**的棋子停留，则 $\left( x+s_x \times 2,y+s_y \times 3\right)$ 为一个可达的位置。
-* **兵**（`soldier`）：可达的位置共 $8$ 个，包括 $\left(x\pm 1,y\right)$ 及 $\left(x,y\pm 1\right)$ 及 $\left(x\pm 1,y\pm 1\right)$。
+* **兵**（`soldier`）：可达的位置共 $8$ 个，包括 $\left(x\pm 1,y\right)$ 及 $\left(x,y\pm 1\right)$ 及 $\left(x\pm 1,y\pm 1\right)$ 及 $\left(x\pm 1,y\mp 1\right)$。
 
 **除上面描述的规则之外，棋子移动还有如下额外规则：**
 
@@ -97,15 +97,14 @@
 
 {{ s('玩具使用说明') }}
 
-你可以在玩具目录下执行如下命令来运行玩具：
+你可以在玩具所在目录下执行如下命令来运行玩具：
 
 ```
-./duckchess.sh
+./duckchess
 ```
 
 特别地，在**初次运行前**，你需要执行如下命令为它添加运行权限：
 
 ```
 chmod +x duckchess
-chmod +x duckchess.sh
 ```
