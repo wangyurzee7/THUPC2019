@@ -10,7 +10,7 @@ name: tree
 partial score: false
 samples:
 - cases: [1]
-time limit: 5.0
+time limit: 10.0
 title: {zh-cn: 不用找的树}
 type: program
 users:

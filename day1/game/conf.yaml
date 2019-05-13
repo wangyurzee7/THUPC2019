@@ -10,7 +10,7 @@ partial score: false
 pre: []
 samples:
 - cases: [1]
-time limit: 1.0
+time limit: 3.0
 title: {zh-cn: 令人难以忘记的题目名称}
 type: program
 users:

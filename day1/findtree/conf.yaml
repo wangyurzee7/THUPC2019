@@ -15,7 +15,7 @@ partial score: false
 pre: []
 samples:
 - cases: [1]
-time limit: 7.0
+time limit: 8.0
 title: {zh-cn: 找树}
 type: program
 users:

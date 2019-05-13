@@ -9,7 +9,7 @@ partial score: false
 pre: []
 samples:
 - cases: [1]
-time limit: 1.0
+time limit: 2.0
 title: {zh-cn: 大碗宽面}
 type: program
 users:

@@ -1,6 +1,7 @@
 folder: contest
 name: name_for_programers
 subdir: [day1, day0]
-subtitle: {zh-cn: 学生程序设计竞赛暨高校邀请赛}
-title: {zh-cn: “Citadel 杯”2019 清华大学}
+short title: {zh-cn: 清华大学学生程序设计竞赛暨高校邀请赛}
+title: {zh-cn: “Citadel｜Citadel Securities 杯”}
+subtitle: {zh-cn: THUPC 2019}
 version: 2

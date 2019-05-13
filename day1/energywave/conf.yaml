@@ -9,7 +9,7 @@ partial score: false
 pre: []
 samples:
 - cases: [1]
-time limit: 5.0
+time limit: 15.0
 title: {zh-cn: 能量波}
 type: program
 users: {}
